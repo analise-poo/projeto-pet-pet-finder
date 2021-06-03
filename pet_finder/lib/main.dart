@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pet_finder/utils/colors.dart';
 
+import 'screens/LoginPage.dart';
+
+
 void main() {
   runApp(MyApp());
 }
@@ -14,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Home(),
+      home: LoginPage(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -24,39 +27,20 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: AppBar(
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("images/BackgroundAppBarHome.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
+      appBar: AppBar(
+        title: TextField(
+          obscureText: true,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Password',
           ),
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(100),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
-              child: Row(
-                children: [
-                  Row(
-                    children: [
-                      Text("Good Morning"),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text("Good Morning"),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-          backgroundColor: Colors.transparent,
         ),
+        actions: <Widget>[
+          CircleAvatar(
+            backgroundColor: Colors.yellow,
+            radius: 80,
+          ),
+        ],
       ),
       bottomNavigationBar: BottomBar(),
     );
