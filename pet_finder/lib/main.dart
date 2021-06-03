@@ -24,20 +24,39 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: TextField(
-          obscureText: true,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Password',
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/BackgroundAppBarHome.png"),
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(100),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+              child: Row(
+                children: [
+                  Row(
+                    children: [
+                      Text("Good Morning"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Good Morning"),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+          backgroundColor: Colors.transparent,
         ),
-        actions: <Widget>[
-          CircleAvatar(
-            backgroundColor: Colors.yellow,
-            radius: 80,
-          ),
-        ],
       ),
       bottomNavigationBar: BottomBar(),
     );
