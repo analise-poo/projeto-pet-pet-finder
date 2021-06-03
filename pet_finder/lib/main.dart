@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_finder/utils/colors.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,29 +35,40 @@ class Home extends StatelessWidget {
         actions: <Widget>[
           CircleAvatar(
             backgroundColor: Colors.yellow,
-            radius: 30,
+            radius: 80,
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.grey,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            label: 'Home',
-            icon: Icon(Icons.home),
-          ),
-          BottomNavigationBarItem(
-            label: 'Perfil',
-            icon: Icon(Icons.person),
-          ),
-          BottomNavigationBarItem(
-            label: 'Configuração',
-            icon: Icon(Icons.settings),
-          ),
-        ],
-      ),
+      bottomNavigationBar: BottomBar(),
+    );
+  }
+}
+
+class BottomBar extends StatelessWidget {
+  const BottomBar({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      currentIndex: 0,
+      selectedItemColor: AppColors.green,
+      unselectedItemColor: AppColors.grey,
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          label: 'Home',
+          icon: Icon(Icons.home),
+        ),
+        BottomNavigationBarItem(
+          label: 'Pesquisar',
+          icon: Icon(Icons.search),
+        ),
+        BottomNavigationBarItem(
+          label: 'Perfil',
+          icon: Icon(Icons.person),
+        ),
+      ],
     );
   }
 }
