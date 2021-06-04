@@ -19,6 +19,20 @@ class UsersController extends Controller
     }
 
     /**
+     * Função que retorna lista de usuários com alguns campos
+     * removidos.
+     *
+     * @return \Illuminate\Support\Collection $users
+     */
+    public function details()
+    {
+        $users = User::all()->each(function($user){
+            $user->makeHidden(['created_at','updated_at']);
+        });
+        return $users;
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -36,7 +50,20 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users|max:128',
+            'password' => 'required',
+        ]);
+
+        $user = User::create([
+            'uuid' => (string) \Illuminate\Support\Str::uuid(),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ]);
+
+        return $user;
     }
 
     /**
@@ -70,8 +97,17 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->update();
-        return response()->json(['msg' => 'Atualizado com sucesso.']);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users|max:128',
+        ]);
+
+        $user->update($request->only('name','email'));
+
+        return response()->json([
+            'message' => 'Atualizado com sucesso.',
+            'user' => $user,
+        ]);
     }
 
     /**
