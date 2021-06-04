@@ -12,6 +12,7 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'phone' => 'required|numeric|digits_between:10,11',
             'email' => 'required|unique:users|max:128',
             'password' => 'required',
         ]);
@@ -19,6 +20,7 @@ class RegisterController extends Controller
         $user = User::create([
             'uuid' => (string) \Illuminate\Support\Str::uuid(),
             'name' => $request->input('name'),
+            'phone' => $request->input('phone'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
         ]);
