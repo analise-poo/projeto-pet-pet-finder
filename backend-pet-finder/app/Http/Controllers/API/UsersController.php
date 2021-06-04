@@ -27,19 +27,9 @@ class UsersController extends Controller
     public function details()
     {
         $users = User::all()->each(function($user){
-            $user->makeHidden(['created_at','updated_at']);
+            $user->makeHidden(['created_at','updated_at',]);
         });
         return $users;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -75,17 +65,6 @@ class UsersController extends Controller
     public function show(User $user)
     {
         return $user;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
     }
 
     /**
