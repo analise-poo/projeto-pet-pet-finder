@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pet_finder/utils/colors.dart';
+
+import 'ui/ui.dart';
+import 'ui/pages/pages.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,81 +15,16 @@ class MyApp extends StatelessWidget {
       title: 'Pet Finder',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Poppins',
       ),
-      home: Home(),
+      initialRoute: HomePage.pageName,
+      routes: {
+        '/': (context) => HomePage(),
+        SearchPage.pageName: (context) => SearchPage(),
+        ProfilePage.pageName: (context) => ProfilePage()
+      },
+      // home: HomePage(),
       debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: AppBar(
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("images/BackgroundAppBarHome.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(100),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
-              child: Row(
-                children: [
-                  Row(
-                    children: [
-                      Text("Good Morning"),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text("Good Morning"),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-          backgroundColor: Colors.transparent,
-        ),
-      ),
-      bottomNavigationBar: BottomBar(),
-    );
-  }
-}
-
-class BottomBar extends StatelessWidget {
-  const BottomBar({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: 0,
-      selectedItemColor: AppColors.green,
-      unselectedItemColor: AppColors.grey,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          label: 'Home',
-          icon: Icon(Icons.home),
-        ),
-        BottomNavigationBarItem(
-          label: 'Pesquisar',
-          icon: Icon(Icons.search),
-        ),
-        BottomNavigationBarItem(
-          label: 'Perfil',
-          icon: Icon(Icons.person),
-        ),
-      ],
     );
   }
 }

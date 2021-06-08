@@ -39,7 +39,17 @@ class AppColors {
     _greyPrimaryValue,
     <int, Color>{
       500: Color(_greyPrimaryValue),
+      600: Color(0xFF8F8F8F),
     },
   );
   static const int _greyPrimaryValue = 0xFFC2C2C2;
+
+  static const MaterialColor white = MaterialColor(
+    _whitePrimaryValue,
+    <int, Color>{
+      500: Color(_whitePrimaryValue),
+      600: Color(0xFFF4F4F4),
+    },
+  );
+  static const int _whitePrimaryValue = 0xFFFFFFFF;
 }
