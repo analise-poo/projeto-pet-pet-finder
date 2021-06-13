@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'ui/ui.dart';
 import 'ui/pages/pages.dart';
 
 void main() {
@@ -19,9 +18,11 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: HomePage.pageName,
       routes: {
-        '/': (context) => LoginPage(),
+        '/': (context) => SignUpPage(),
         SearchPage.pageName: (context) => SearchPage(),
-        ProfilePage.pageName: (context) => ProfilePage()
+        ProfilePage.pageName: (context) => ProfilePage(),
+        LoginPage.pageName: (context) => LoginPage(),
+        SignUpPage.pageName: (context) => SignUpPage()
       },
       // home: HomePage(),
       debugShowCheckedModeBanner: false,

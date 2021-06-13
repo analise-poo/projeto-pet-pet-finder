@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+
 import 'package:pet_finder/ui/utils/colors.dart';
 import '../utils/utils.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
+class SignUpPage extends StatefulWidget {
+  SignUpPage({Key key}) : super(key: key);
+  static String pageName = '/signup';
 
-  static String pageName = '/login';
+  @override
+  _SignUpState createState() => _SignUpState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpState extends State<SignUpPage> {
   final String _imageLogo = "assets/images/WhiteLogo.svg";
   final String _appLoginBackground = "assets/images/BackgroundLogin.svg";
   final String _faceLogo = "assets/images/FacebookIcon.svg";
@@ -24,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
         preferredSize:
             Size.fromHeight(MediaQuery.of(context).size.height * 0.25),
         child: AppBar(
+          leading: Text('oi'),
           flexibleSpace: Container(
             child: SvgPicture.asset(
               _appLoginBackground,
@@ -55,13 +58,65 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 height: MediaQuery.of(context).size.height,
                 padding: EdgeInsets.only(
-                  top: 40,
+                  top: 20,
                   left: 20,
                   right: 20,
                 ),
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: <Widget>[
+                    TextField(
+                      keyboardType: TextInputType.name,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: AppColors.white[600],
+                        labelText: "Nome",
+                        labelStyle: TextStyle(color: AppColors.grey[700]),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide: BorderSide(
+                              color: AppColors.white[600], width: 0.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 0.5),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      keyboardType: TextInputType.datetime,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: AppColors.white[600],
+                        labelText: "Data de Nascimento",
+                        labelStyle: TextStyle(color: AppColors.grey[700]),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide: BorderSide(
+                              color: AppColors.white[600], width: 0.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 0.5),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     TextField(
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
@@ -73,8 +128,34 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: const BorderRadius.all(
                             const Radius.circular(10.0),
                           ),
-                          borderSide: BorderSide(
-                              color: AppColors.white[600], width: 0.5),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 0.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 0.5),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: AppColors.white[600],
+                        labelText: "Celular",
+                        labelStyle: TextStyle(color: AppColors.grey[700]),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 0.5),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: const BorderRadius.all(
@@ -111,18 +192,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          child: Text(
-                            "Esqueceu sua senha?",
-                            style: TextStyle(color: AppColors.grey[700]),
-                          ),
-                          onPressed: () {},
-                        )
-                      ],
-                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -131,7 +200,7 @@ class _LoginPageState extends State<LoginPage> {
                         ElevatedButton(
                           onPressed: () {},
                           child: Text(
-                            'Entrar',
+                            'Cadastrar',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -229,27 +298,6 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Não tem uma conta?',
-                          style: TextStyle(
-                            color: AppColors.grey[700],
-                          ),
-                        ),
-                        TextButton(
-                          child: Text(
-                            "Crie aqui",
-                            style: TextStyle(color: AppColors.green),
-                          ),
-                          onPressed: () {},
-                        )
                       ],
                     ),
                   ],
