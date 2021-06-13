@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:pet_finder/ui/pages/pages.dart';
+import 'package:pet_finder/ui/utils/colors.dart';
 import '../utils/utils.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,7 +14,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final String appBarBackground = "assets/images/BackgroundAppBarHome.svg";
+  final String _appBarBackground = "assets/images/BackgroundAppBarHome.svg";
+  List _newLostPets = ['pet1', 'pet2', 'pet3', 'pet4', 'pet5'];
+
+  List _todayLostPets = ['pet1', 'pet2', 'pet3', 'pet4', 'pet5', 'pet 6'];
 
   int _currentIndex = 0;
 
@@ -57,23 +63,19 @@ class _HomePageState extends State<HomePage> {
               Size.fromHeight(MediaQuery.of(context).size.height * 0.15),
           child: AppBar(
             flexibleSpace: Container(
-              child: SvgPicture.asset(appBarBackground),
-
-              // decoration: BoxDecoration(
-              //   image: DecorationImage(
-              //     image: AssetImage("assets/images/BackgroundAppBarHome.png"),
-              //     fit: BoxFit.fill,
-              //   ),
-              // ),
+              child: SvgPicture.asset(
+                _appBarBackground,
+                width: MediaQuery.of(context).size.width,
+              ),
             ),
             bottom: PreferredSize(
               preferredSize:
                   Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
               child: Padding(
                 padding: EdgeInsets.only(
-                  right: 20,
-                  left: 20,
-                  bottom: 40,
+                  right: MediaQuery.of(context).size.width * 0.05,
+                  left: MediaQuery.of(context).size.width * 0.05,
+                  bottom: MediaQuery.of(context).size.width * 0.1,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                               Icon(
                                 Icons.room,
                                 color: AppColors.green,
-                                size: 30,
+                                size: MediaQuery.of(context).size.width * 0.075,
                               ),
                               SizedBox(
                                 child: Text(
@@ -110,14 +112,15 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       children: [
                         ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: SizedBox(
-                              height: 60,
-                              width: 60,
-                              child: Image.network(
-                                'https://uifaces.co/our-content/donated/1H_7AxP0.jpg',
-                              ),
-                            )),
+                          borderRadius: BorderRadius.circular(10),
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.075,
+                            width: MediaQuery.of(context).size.height * 0.075,
+                            child: Image.network(
+                              'https://uifaces.co/our-content/donated/1H_7AxP0.jpg',
+                            ),
+                          ),
+                        ),
                       ],
                     )
                   ],
@@ -128,53 +131,117 @@ class _HomePageState extends State<HomePage> {
             elevation: 0,
           ),
         ),
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Pets que se perderam pertinho",
+                            style: TextStyle(fontSize: 16),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: _newLostPets.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: AppColors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          offset: const Offset(1, 1),
+                                          blurRadius: 2,
+                                          spreadRadius: 0,
+                                          color: AppColors.grey),
+                                    ]),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.35,
+                                width: MediaQuery.of(context).size.width * 0.35,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.15,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.35,
+                                      child: ClipRRect(
+                                        child: Image.network(
+                                          'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+                                          fit: BoxFit.fill,
+                                        ),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10)),
+                                      ),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Zezin do pagode',
+                                        ),
+                                        Text(
+                                          'Pitbull',
+                                          style: TextStyle(fontSize: 12),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: 40, left: 20, right: 20, bottom: 20),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Pets que se perderam hoje",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
       );
     } else if (index == 1) {
-      return Text('oi');
+      return SearchPage();
     } else if (index == 2) {
-      return Text('oi');
+      return ProfilePage();
     }
   }
 }
-
-
-
-// int _currentIndex = 0;
-
-// class BottomBar extends StatefulWidget {
-//   BottomBar({Key key}) : super(key: key);
-
-//   @override
-//   _BottomBarState createState() => _BottomBarState();
-// }
-
-// class _BottomBarState extends State<BottomBar> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return BottomNavigationBar(
-//       currentIndex: _currentIndex,
-//       selectedItemColor: AppColors.green,
-//       unselectedItemColor: AppColors.grey,
-//       items: [
-//         BottomNavigationBarItem(
-//           label: 'Home',
-//           icon: Icon(Icons.home),
-//         ),
-//         BottomNavigationBarItem(
-//           label: 'Pesquisar',
-//           icon: Icon(Icons.search),
-//         ),
-//         BottomNavigationBarItem(
-//           label: 'Perfil',
-//           icon: Icon(Icons.person),
-//         ),
-//       ],
-//       onTap: (index) {
-//         setState(() {
-//           _currentIndex = index;
-//           _buildBody(index);
-//         });
-//       },
-//     );
-//   }
-// }

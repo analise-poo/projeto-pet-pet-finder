@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'ui/ui.dart';
 import 'ui/pages/pages.dart';
 
-import 'screens/LoginPage.dart';
-
 void main() {
   runApp(MyApp());
 }

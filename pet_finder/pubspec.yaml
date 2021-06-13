@@ -46,18 +46,13 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-<<<<<<< HEAD
-    - assets/images/BackgroundAppBarHome.png
     - assets/images/BackgroundAppBarHome.svg
+    - assets/images/BackgroundLogin.svg
     - assets/images/WhiteLogo.svg
-    - assets/images/WhiteLogo.png
+    - assets/images/WhiteLogoWithName.svg
 
 
 
-=======
-    - images/BackgroundAppBarHome.png
-    - images/Logo.png
->>>>>>> e3110e8b03f7c94f9383b7ca90caccd5c83d49cd
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
