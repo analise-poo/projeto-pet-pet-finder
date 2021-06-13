@@ -200,6 +200,7 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         Text(
                                           'Zezin do pagode',
+                                          style: TextStyle(fontSize: 16),
                                         ),
                                         Text(
                                           'Pitbull',

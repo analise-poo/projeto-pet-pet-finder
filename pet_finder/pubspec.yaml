@@ -50,6 +50,8 @@ flutter:
     - assets/images/BackgroundLogin.svg
     - assets/images/WhiteLogo.svg
     - assets/images/WhiteLogoWithName.svg
+    - assets/images/FacebookIcon.svg
+    - assets/images/GoogleIcon.svg
 
 
 
