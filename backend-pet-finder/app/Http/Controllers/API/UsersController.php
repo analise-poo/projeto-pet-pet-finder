@@ -27,7 +27,7 @@ class UsersController extends Controller
     public function details()
     {
         $users = User::all()->each(function($user){
-            $user->makeHidden(['created_at','updated_at',]);
+            $user->makeHidden(['created_at','updated_at','password']);
         });
         return $users;
     }
@@ -42,13 +42,14 @@ class UsersController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'phone' => 'required|numeric|between:10,11',
+            'phone' => 'numeric|between:10,11',
             'email' => 'required|unique:users|max:128',
-            'password' => 'required',
+            'password' => 'required|min:16',
         ]);
 
         $user = User::create([
             'uuid' => (string) \Illuminate\Support\Str::uuid(),
+            'avatar' => 
             'name' => $request->input('name'),
             'phone' => $request->input('phone'),
             'email' => $request->input('email'),
@@ -80,13 +81,14 @@ class UsersController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'phone' => 'numeric|between:10,11',
             'email' => 'required|unique:users|max:128',
         ]);
 
-        $user->update($request->only('name','email'));
+        $user->update($request->only('avatar', 'name', 'phone', 'email'));
 
         return response()->json([
-            'message' => 'Atualizado com sucesso.',
+            'msg' => 'Atualizado com sucesso.',
             'user' => $user,
         ]);
     }
