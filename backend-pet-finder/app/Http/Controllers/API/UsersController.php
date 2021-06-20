@@ -19,17 +19,16 @@ class UsersController extends Controller
     }
 
     /**
-     * Função que retorna lista de usuários com alguns campos
+     * Função que retorna lista um usuário com alguns campos
      * removidos.
      *
-     * @return \Illuminate\Support\Collection $users
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
      */
-    public function details()
+    public function details(User $user)
     {
-        $users = User::all()->each(function($user){
-            $user->makeHidden(['created_at','updated_at','password']);
-        });
-        return $users;
+        $user = $user->makeHidden(['created_at','updated_at','email_verified_at', 'password']);
+        return $user;
     }
 
     /**
@@ -49,7 +48,6 @@ class UsersController extends Controller
 
         $user = User::create([
             'uuid' => (string) \Illuminate\Support\Str::uuid(),
-            'avatar' => 
             'name' => $request->input('name'),
             'phone' => $request->input('phone'),
             'email' => $request->input('email'),
@@ -85,7 +83,10 @@ class UsersController extends Controller
             'email' => 'required|unique:users|max:128',
         ]);
 
-        $user->update($request->only('avatar', 'name', 'phone', 'email'));
+        if ($request->hasFile('avatar')) {
+            $user->uploadImage($request->file('avatar'), 'avatar');
+        }
+        $user->update($request->only('name', 'phone', 'email'));
 
         return response()->json([
             'msg' => 'Atualizado com sucesso.',
