@@ -35,9 +35,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $imagesUploadPath = 'uploads';
+    protected $imagesUploadPath = 'avatars';
     protected static $imageFields = [
-        'avatar'
+        'avatar' => [
+            'width' => 200,
+            'height' => 200
+        ]
     ];
 
     /**
@@ -50,7 +53,7 @@ class User extends Authenticatable
     ];
 
     protected function avatarUploadFilePath($file) {
-        return $this->id . '-avatar.' . $file->getClientOriginalName();
+        return $this->id . '-avatar-' . $file->getClientOriginalName();
     }
 
     public function posts() {

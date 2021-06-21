@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use QCod\ImageUp\HasImageUploads;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, HasImageUploads;
 
     /**
      * The attributes that are mass assignable.
@@ -16,10 +17,10 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
+        'image',
         'name',
         'breed',
         'sex',
-        'age',
         'ls_address',
         'ls_datetime',
         'observation',
@@ -34,6 +35,11 @@ class Post extends Model
     protected $hidden = [
     ];
 
+    protected $imagesUploadPath = 'posts';
+    protected static $imageFields = [
+        'image'
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -42,6 +48,10 @@ class Post extends Model
     protected $casts = [
         'ls_datetime' => 'datetime',
     ];
+
+    protected function imageUploadFilePath($file) {
+        return $this->id . '-image-' . $file->getClientOriginalName();
+    }
 
     public function user() {
         return $this->belongsTo(User::class);

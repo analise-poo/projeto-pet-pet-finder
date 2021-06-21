@@ -26,7 +26,6 @@ class PostFactory extends Factory
             'name' => $this->faker->name(),
             'breed' => $this->faker->word(),
             'sex' => $this->faker->randomElement(['m', 'f']),
-            'age' => $this->faker->randomDigit(),
             'ls_address' => $this->faker->sentence(2),
             'ls_datetime' => $this->faker->datetime(),
             'observation' => $this->faker->text(),
