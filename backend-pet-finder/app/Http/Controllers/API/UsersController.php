@@ -20,20 +20,6 @@ class UsersController extends Controller
     }
 
     /**
-     * Função que retorna um usuário com alguns campos
-     * removidos.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function details(User $user)
-    {
-        $user = $user->makeHidden(['created_at','updated_at','email_verified_at', 'password']);
-        $user->avatar = url('/') . '/storage/' . $user->avatar;
-        return $user;
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -66,30 +52,12 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
+        if ($user->avatar) {
+            $user->avatar = url('/') . '/storage/' . $user->avatar;
+        } else {
+            $user->makeHidden(['avatar']);
+        }
         return $user;
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        $request->validate([
-            'name' => 'required',
-            'phone' => 'numeric|between:10,11',
-            'email' => 'required|max:128',
-        ]);
-
-        $user->update($request->only('name', 'phone', 'email'));
-
-        return response()->json([
-            'msg' => 'Atualizado com sucesso.',
-            'user' => $user,
-        ]);
     }
 
     public function updateProfile(Request $request, User $user)

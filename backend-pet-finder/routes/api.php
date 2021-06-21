@@ -23,13 +23,11 @@ Route::post('register', [RegisterController::class, 'register'])->name('register
 
 Route::post('login', [LoginController::class, 'login'])->name('login');
 
-Route::get('users/{user}/details', [UsersController::class, 'details']);
-
 Route::post('users/{user}/updateProfile', [UsersController::class, 'updateProfile']);
 
 Route::resource('users', UsersController::class)->middleware('auth:sanctum');
 
-Route::get('posts/{post}/details', [PostsController::class, 'details']);
+Route::get('posts/details', [PostsController::class, 'details']);
 
 Route::post('posts/{post}/updatePost', [PostsController::class, 'updatePost']);
 

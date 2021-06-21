@@ -25,11 +25,13 @@ class PostsController extends Controller
      * @param  \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function details(Post $post)
+    public function details()
     {
-        $post = $post->makeHidden(['created_at','updated_at']);
-        $post->image = url('/') . '/storage/' . $post->image;
-        return $post;
+        $posts = Post::all()->each(function($post){
+            $post = $post->makeHidden(['created_at','updated_at', 'sex', 'ls_address', 'ls_datetime', 'observation']);
+            $post->image = url('/') . '/storage/' . $post->image;
+        });
+        return $posts;
     }
 
     /**
@@ -41,7 +43,7 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'name' => 'required|max:20',
             'breed' => 'required',
             'sex' => 'required|max:1',
@@ -52,7 +54,7 @@ class PostsController extends Controller
         ]);
 
         $post = Post::create([
-            'imagem' => $request->file('image'),
+            'image' => $request->file('image'),
             'name' => $request->input('name'),
             'breed' => $request->input('breed'),
             'sex' => $request->input('sex'),
@@ -73,35 +75,15 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
+        $post = $post->makeHidden(['created_at','updated_at']);
+        $post->image = url('/') . '/storage/' . $post->image;
+        if ($post->user->image) {
+            $post->user->image = url('/') . '/storage/' . $post->image;
+        } else {
+            $post->user->makeHidden(['avatar']);
+        }
+        $post->user->makeHidden(['phone', 'email', 'email_verified_at', 'created_at', 'updated_at']);
         return $post;
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Post $post)
-    {
-        $request->validate([
-            'name' => 'required|max:20',
-            'breed' => 'required',
-            'sex' => 'required|max:1',
-            'ls_address' => 'required|max:40',
-            'ls_datetime' => 'required|date',
-            'observation' => 'max:40',
-        ]);
-
-        $post->update(
-            $request->only('name','breed', 'sex', 'ls_address', 'ls_datetime', 'ls_time', 'observation')
-        );
-
-        return response()->json([
-            'msg' => 'Atualizado com sucesso.',
-            'post' => $post,
-        ]);
     }
 
     public function updatePost(Request $request, Post $post)

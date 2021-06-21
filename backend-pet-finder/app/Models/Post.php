@@ -27,14 +27,6 @@ class Post extends Model
         'user_id'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-    ];
-
     protected $imagesUploadPath = 'posts';
     protected static $imageFields = [
         'image'
