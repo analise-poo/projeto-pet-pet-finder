@@ -5,30 +5,28 @@ import '../utils/utils.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SignUpPage extends StatefulWidget {
-  SignUpPage({Key key}) : super(key: key);
-  static String pageName = '/signup';
+class IncludePage extends StatefulWidget {
+  static String pageName = 'include-page';
+
+  IncludePage({Key key}) : super(key: key);
 
   @override
-  _SignUpState createState() => _SignUpState();
+  _IncludePageState createState() => _IncludePageState();
 }
 
-class _SignUpState extends State<SignUpPage> {
-  final String _imageLogo = "assets/images/WhiteLogo.svg";
-  final String _appLoginBackground = "assets/images/BackgroundLogin.svg";
-  final String _faceLogo = "assets/images/FacebookIcon.svg";
-  final String _googleLogo = "assets/images/GoogleIcon.svg";
+class _IncludePageState extends State<IncludePage> {
+  final String _appBarBackground = "assets/images/BackgroundAppBarHome.svg";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
-            Size.fromHeight(MediaQuery.of(context).size.height * 0.25),
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.15),
         child: AppBar(
           flexibleSpace: Container(
             child: SvgPicture.asset(
-              _appLoginBackground,
+              _appBarBackground,
               width: MediaQuery.of(context).size.width,
             ),
           ),
@@ -37,12 +35,57 @@ class _SignUpState extends State<SignUpPage> {
                 Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
             child: Padding(
               padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.width * 0.15,
+                right: MediaQuery.of(context).size.width * 0.05,
+                left: MediaQuery.of(context).size.width * 0.05,
+                bottom: MediaQuery.of(context).size.width * 0.1,
               ),
-              child: SvgPicture.asset(
-                _imageLogo,
-                width: 120,
-                height: 120,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.075,
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.white[600],
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.room,
+                              color: AppColors.green,
+                              size: MediaQuery.of(context).size.width * 0.075,
+                            ),
+                            SizedBox(
+                              child: Text(
+                                'Gleba Palhano',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.075,
+                          width: MediaQuery.of(context).size.height * 0.075,
+                          child: Image.network(
+                            'https://uifaces.co/our-content/donated/1H_7AxP0.jpg',
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
             ),
           ),
@@ -200,80 +243,6 @@ class _SignUpState extends State<SignUpPage> {
                     ),
                     SizedBox(
                       height: 20,
-                    ),
-                    Row(children: <Widget>[
-                      Expanded(
-                        child: new Container(
-                            margin:
-                                const EdgeInsets.only(left: 20.0, right: 20.0),
-                            child: Divider(
-                              color: AppColors.grey[700],
-                              height: 50,
-                            )),
-                      ),
-                      Text(
-                        "ou",
-                        style: TextStyle(
-                          color: AppColors.grey[700],
-                        ),
-                      ),
-                      Expanded(
-                        child: new Container(
-                            margin:
-                                const EdgeInsets.only(left: 20.0, right: 20.0),
-                            child: Divider(
-                              color: AppColors.grey[700],
-                              height: 36,
-                            )),
-                      ),
-                    ]),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: Center(
-                            child: SvgPicture.asset(_faceLogo),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.white,
-                            ),
-                            minimumSize: MaterialStateProperty.all<Size>(
-                              Size(100, 60),
-                            ),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: Center(
-                            child: SvgPicture.asset(_googleLogo),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.white,
-                            ),
-                            minimumSize: MaterialStateProperty.all<Size>(
-                              Size(100, 60),
-                            ),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),

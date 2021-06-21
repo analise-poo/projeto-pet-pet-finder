@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: HomePage.pageName,
       routes: {
-        '/': (context) => SignUpPage(),
-        SearchPage.pageName: (context) => SearchPage(),
+        '/': (context) => PetDetails(),
+        IncludePage.pageName: (context) => IncludePage(),
         ProfilePage.pageName: (context) => ProfilePage(),
         LoginPage.pageName: (context) => LoginPage(),
         SignUpPage.pageName: (context) => SignUpPage()

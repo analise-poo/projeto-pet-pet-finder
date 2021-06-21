@@ -248,7 +248,9 @@ class _LoginPageState extends State<LoginPage> {
                             "Crie aqui",
                             style: TextStyle(color: AppColors.green),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/signup');
+                          },
                         )
                       ],
                     ),

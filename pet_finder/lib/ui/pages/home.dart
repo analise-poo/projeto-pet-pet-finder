@@ -15,9 +15,41 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final String _appBarBackground = "assets/images/BackgroundAppBarHome.svg";
-  List _newLostPets = ['pet1', 'pet2', 'pet3', 'pet4', 'pet5'];
 
-  List _todayLostPets = ['pet1', 'pet2', 'pet3', 'pet4', 'pet5', 'pet 6'];
+  List _nearlyLostPets = [
+    {
+      'name': "Billy",
+      'breed': "BullDog",
+      'photo':
+          "https://images.unsplash.com/photo-1561754050-9a1ee0470c73?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80"
+    },
+    {
+      'name': "Linux",
+      'breed': "Golden Retrivier",
+      'photo':
+          "https://images.unsplash.com/photo-1592754862816-1a21a4ea2281?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80"
+    },
+    {
+      'name': "Dora",
+      'breed': "Yorkshire",
+      'photo':
+          "https://images.unsplash.com/photo-1591608971358-f93643d11763?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      'name': "Diana",
+      'breed': "Husky Siberiano",
+      'photo':
+          "https://images.unsplash.com/photo-1568572933382-74d440642117?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80"
+    },
+    {
+      'name': "Pedroca",
+      'breed': "Vira-lata",
+      'photo':
+          "https://images.unsplash.com/photo-1598991712061-3132295b5d7d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=555&q=80"
+    }
+  ];
+
+  List _todayLostPets = ['pet1', 'pet2', 'pet3', 'pet4', 'pet5'];
 
   int _currentIndex = 0;
 
@@ -35,8 +67,8 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            label: 'Pesquisar',
-            icon: Icon(Icons.search),
+            label: 'Adicionar',
+            icon: Icon(Icons.add),
           ),
           BottomNavigationBarItem(
             label: 'Perfil',
@@ -54,8 +86,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildBody(int index) {
-    debugPrint("$index");
-
     if (index == 0) {
       return Scaffold(
         appBar: PreferredSize(
@@ -152,63 +182,85 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.2,
+                        height: MediaQuery.of(context).size.height * 0.205,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: _newLostPets.length,
+                          itemCount: _nearlyLostPets.length,
                           itemBuilder: (context, index) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: AppColors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          offset: const Offset(1, 1),
-                                          blurRadius: 2,
-                                          spreadRadius: 0,
-                                          color: AppColors.grey),
-                                    ]),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.35,
-                                width: MediaQuery.of(context).size.width * 0.35,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.15,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.35,
-                                      child: ClipRRect(
-                                        child: Image.network(
-                                          'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
-                                          fit: BoxFit.fill,
+                            return new GestureDetector(
+                              onTap: () {},
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: AppColors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            offset: const Offset(1, 1),
+                                            blurRadius: 2,
+                                            spreadRadius: 0,
+                                            color: AppColors.grey),
+                                      ]),
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.35,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.35,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.15,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.35,
+                                        child: ClipRRect(
+                                          child: Image.network(
+                                            _nearlyLostPets[index]['photo'],
+                                            fit: BoxFit.fill,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            topRight: Radius.circular(10)),
                                       ),
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Zezin do pagode',
-                                          style: TextStyle(fontSize: 16),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  _nearlyLostPets[index]
+                                                      ['name'],
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  _nearlyLostPets[index]
+                                                      ['breed'],
+                                                  style:
+                                                      TextStyle(fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                        Text(
-                                          'Pitbull',
-                                          style: TextStyle(fontSize: 12),
-                                        )
-                                      ],
-                                    ),
-                                  ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
@@ -222,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          top: 40, left: 20, right: 20, bottom: 20),
+                          top: 60, left: 20, right: 20, bottom: 20),
                       child: Row(
                         children: [
                           Text(
@@ -230,6 +282,101 @@ class _HomePageState extends State<HomePage> {
                             style: TextStyle(fontSize: 16),
                           ),
                         ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height,
+                        child: GridView.builder(
+                          physics: ScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                                  mainAxisSpacing: 20,
+                                  maxCrossAxisExtent:
+                                      MediaQuery.of(context).size.height *
+                                          0.35),
+                          itemCount: _nearlyLostPets.length,
+                          itemBuilder: (context, index) {
+                            return new GestureDetector(
+                              onTap: () {},
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: AppColors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            offset: const Offset(1, 1),
+                                            blurRadius: 2,
+                                            spreadRadius: 0,
+                                            color: AppColors.grey),
+                                      ]),
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.35,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.35,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.175,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.45,
+                                        child: ClipRRect(
+                                          child: Image.network(
+                                            _nearlyLostPets[index]['photo'],
+                                            fit: BoxFit.fill,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  _nearlyLostPets[index]
+                                                      ['name'],
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  _nearlyLostPets[index]
+                                                      ['breed'],
+                                                  style:
+                                                      TextStyle(fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -240,7 +387,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     } else if (index == 1) {
-      return SearchPage();
+      return IncludePage();
     } else if (index == 2) {
       return ProfilePage();
     }

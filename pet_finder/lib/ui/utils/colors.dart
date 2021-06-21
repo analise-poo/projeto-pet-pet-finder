@@ -41,6 +41,8 @@ class AppColors {
       500: Color(_greyPrimaryValue),
       600: Color(0xFF8F8F8F),
       700: Color(0xFFC2C2C2),
+      800: Color(0xFF5C5C5C),
+      900: Color(0xFF757575)
     },
   );
   static const int _greyPrimaryValue = 0xFFC2C2C2;
