@@ -16,7 +16,7 @@ class GetxLoginController extends GetxController {
       print('${loginModel.toJson()}');
 
       var response = await Dio().post(
-        'http://192.168.0.7:8000/api/login',
+        'https://backend-pet-finder.herokuapp.com/api/login',
         data: loginModel.toJson(),
         options: Options(
           headers: {
@@ -25,13 +25,11 @@ class GetxLoginController extends GetxController {
         ),
       );
 
-      print(response);
-
-      await storage.write(key: 'mobile', value: response.data);
+      await storage.write(key: 'token', value: response.data);
 
       print(response.data);
     } on DioError catch (d) {
-      // print('STATUS CODE: ${d.response.statusCode}');
+      print('STATUS CODE: ${d.response.statusCode}');
       print('MESSAGE: ${d.message}');
       throw Exception('Aconteceu um erro no Dio!');
     } catch (e) {

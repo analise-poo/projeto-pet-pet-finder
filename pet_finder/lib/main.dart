@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:pet_finder/ui/pages/login/login_binding.dart';
+import 'package:pet_finder/ui/pages/register/singup_binding.dart';
+import 'package:pet_finder/ui/pages/post/post_binding.dart';
 
 import 'ui/pages/bindings/home_page_binding.dart';
 import 'ui/pages/pages.dart';
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Poppins',
       ),
-      initialRoute: LoginPage.pageName,
+      initialRoute: PetDetails.pageName,
       // routes: {
       //   '/': (context) => HomePage(),
       //   IncludePage.pageName: (context) => IncludePage(),
@@ -37,6 +39,7 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: IncludePage.pageName,
           page: () => IncludePage(),
+          binding: PostBinding(),
         ),
         GetPage(
           name: ProfilePage.pageName,
@@ -50,6 +53,11 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: SignUpPage.pageName,
           page: () => SignUpPage(),
+          binding: RegisterBinding(),
+        ),
+        GetPage(
+          name: PetDetails.pageName,
+          page: () => PetDetails(),
         ),
       ],
       debugShowCheckedModeBanner: false,

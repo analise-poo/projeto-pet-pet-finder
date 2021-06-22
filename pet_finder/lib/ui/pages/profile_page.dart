@@ -64,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             SizedBox(
                               child: Text(
-                                'Lucas Magalhães Brest',
+                                'Jorge Luiz',
                                 style: TextStyle(fontSize: 16),
                               ),
                             )
@@ -142,7 +142,42 @@ class _ProfilePageState extends State<ProfilePage> {
                             padding: const EdgeInsets.only(left: 5),
                             child: SizedBox(
                               child: Text(
-                                'jorge.souza@edu.unifil.br',
+                                'Avatar',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.075,
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: AppColors.white[600],
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.email,
+                            color: AppColors.green,
+                            size: MediaQuery.of(context).size.width * 0.06,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: SizedBox(
+                              child: Text(
+                                'Jorge Luiz',
                                 style: TextStyle(fontSize: 16),
                               ),
                             ),
@@ -170,6 +205,41 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Icon(
                             Icons.phone_android,
+                            color: AppColors.green,
+                            size: MediaQuery.of(context).size.width * 0.06,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: SizedBox(
+                              child: Text(
+                                'jorge.luiz@email.com',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.075,
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: AppColors.white[600],
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.email,
                             color: AppColors.green,
                             size: MediaQuery.of(context).size.width * 0.06,
                           ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pet_finder/ui/pages/pages.dart';
 import 'package:pet_finder/ui/utils/colors.dart';
 import '../utils/utils.dart';
 

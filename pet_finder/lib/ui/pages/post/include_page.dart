@@ -1,48 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pet_finder/models/register_model.dart';
-import 'package:pet_finder/state/get/getx_register_controller.dart';
-import 'package:pet_finder/ui/pages/login/login_binding.dart';
-import 'package:pet_finder/ui/pages/login/login_page.dart';
-
+import 'package:pet_finder/models/post_model.dart';
+import 'package:pet_finder/state/get/getx_post_controller.dart';
+import 'package:pet_finder/ui/pages/bindings/home_page_binding.dart';
+import 'package:pet_finder/ui/pages/home.dart';
+import 'dart:io';
 import 'package:pet_finder/ui/utils/colors.dart';
 import '../../utils/utils.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SignUpPage extends StatefulWidget {
-  SignUpPage({Key key}) : super(key: key);
-  static String pageName = '/signup';
+class IncludePage extends StatefulWidget {
+  static String pageName = 'include-page';
+
+  IncludePage({Key key}) : super(key: key);
 
   @override
-  _SignUpState createState() => _SignUpState();
+  _IncludePageState createState() => _IncludePageState();
 }
 
-class _SignUpState extends State<SignUpPage> {
-  final String _imageLogo = "assets/images/WhiteLogo.svg";
-  final String _appLoginBackground = "assets/images/BackgroundLogin.svg";
-  final String _faceLogo = "assets/images/FacebookIcon.svg";
-  final String _googleLogo = "assets/images/GoogleIcon.svg";
+class _IncludePageState extends State<IncludePage> {
+  final String _appBarBackground = "assets/images/BackgroundAppBarHome.svg";
 
   final _formKey = GlobalKey<FormState>();
 
-  final GetxRegisterController controller = Get.find<GetxRegisterController>();
+  final GetxPostController controller = Get.find<GetxPostController>();
 
-  String _nameRegister;
-  String _phoneRegister;
-  String _emailRegister;
-  String _passwordRegister;
+  final _picker = ImagePicker();
 
-  void register() async {
+  String _image;
+  String _name;
+  String _breed;
+  String _sex;
+  String _lsAddress;
+  DateTime _lsDateTime;
+  String _observation;
+
+  void createPost() async {
     if (_formKey.currentState.validate()) {
       await controller
-          .register(RegisterModel(
-              name: _nameRegister,
-              phone: _phoneRegister,
-              email: _emailRegister,
-              password: _passwordRegister))
+          .createPost(PostModel(
+              image: _image,
+              name: _name,
+              breed: _breed,
+              sex: _sex,
+              lsAddress: _lsAddress,
+              lsDateTime: _lsDateTime,
+              observation: _observation))
           .then((value) {
-        Get.to(() => LoginPage(), binding: LoginBinding());
+        Get.to(() => HomePage(), binding: HomePageBinding());
       }).onError((error, stackTrace) {
         print(error);
         Get.snackbar(
@@ -55,16 +62,23 @@ class _SignUpState extends State<SignUpPage> {
     }
   }
 
+  Future getImage() async {
+    final _pickedFile = await _picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      _image = _pickedFile.path;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
-            Size.fromHeight(MediaQuery.of(context).size.height * 0.25),
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.15),
         child: AppBar(
           flexibleSpace: Container(
             child: SvgPicture.asset(
-              _appLoginBackground,
+              _appBarBackground,
               width: MediaQuery.of(context).size.width,
             ),
           ),
@@ -72,44 +86,57 @@ class _SignUpState extends State<SignUpPage> {
             preferredSize:
                 Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.only(
+                right: MediaQuery.of(context).size.width * 0.05,
+                left: MediaQuery.of(context).size.width * 0.05,
+                bottom: MediaQuery.of(context).size.width * 0.1,
+              ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/login');
-                    },
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: AppColors.green,
-                    ),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Colors.white,
-                      ),
-                      minimumSize: MaterialStateProperty.all<Size>(
-                        Size(60, 60),
-                      ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
+                  Row(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.075,
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
+                          color: AppColors.white[600],
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.person,
+                              color: AppColors.green,
+                              size: MediaQuery.of(context).size.width * 0.075,
+                            ),
+                            SizedBox(
+                              child: Text(
+                                'Lucas Magalhães Brest',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.075,
+                          width: MediaQuery.of(context).size.height * 0.075,
+                          child: Image.network(
+                            'https://uifaces.co/our-content/donated/1H_7AxP0.jpg',
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).size.width * 0.15,
-                      left: MediaQuery.of(context).size.width * 0.15,
-                    ),
-                    child: SvgPicture.asset(
-                      _imageLogo,
-                      width: 120,
-                      height: 120,
-                    ),
-                  ),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -136,12 +163,15 @@ class _SignUpState extends State<SignUpPage> {
                     physics: ScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                      ),
                       TextField(
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: AppColors.white[600],
-                          labelText: "Nome",
+                          labelText: "Nome do Pet",
                           labelStyle: TextStyle(color: AppColors.grey[700]),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
@@ -158,21 +188,16 @@ class _SignUpState extends State<SignUpPage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
-                        onChanged: (text) {
-                          setState(() {
-                            _nameRegister = text;
-                          });
-                        },
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       TextField(
-                        keyboardType: TextInputType.phone,
+                        keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: AppColors.white[600],
-                          labelText: "Celular",
+                          labelText: "Raça",
                           labelStyle: TextStyle(color: AppColors.grey[700]),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
@@ -189,21 +214,16 @@ class _SignUpState extends State<SignUpPage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
-                        onChanged: (text) {
-                          setState(() {
-                            _phoneRegister = text;
-                          });
-                        },
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       TextField(
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: AppColors.white[600],
-                          labelText: "Email",
+                          labelText: "Sexo",
                           labelStyle: TextStyle(color: AppColors.grey[700]),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
@@ -220,21 +240,16 @@ class _SignUpState extends State<SignUpPage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
-                        onChanged: (text) {
-                          setState(() {
-                            _emailRegister = text;
-                          });
-                        },
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       TextField(
-                        keyboardType: TextInputType.visiblePassword,
+                        keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: AppColors.white[600],
-                          labelText: "Senha",
+                          labelText: "Local",
                           labelStyle: TextStyle(color: AppColors.grey[700]),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
@@ -251,11 +266,84 @@ class _SignUpState extends State<SignUpPage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
-                        onChanged: (text) {
-                          setState(() {
-                            _passwordRegister = text;
-                          });
-                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        keyboardType: TextInputType.datetime,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: AppColors.white[600],
+                          labelText: "Data",
+                          labelStyle: TextStyle(color: AppColors.grey[700]),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0),
+                            ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 0.5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0),
+                            ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 0.5),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        keyboardType: TextInputType.name,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: AppColors.white[600],
+                          labelText: "Horário",
+                          labelStyle: TextStyle(color: AppColors.grey[700]),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0),
+                            ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 0.5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0),
+                            ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 0.5),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        keyboardType: TextInputType.name,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: AppColors.white[600],
+                          labelText: "Observações",
+                          labelStyle: TextStyle(color: AppColors.grey[700]),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0),
+                            ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 0.5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0),
+                            ),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 0.5),
+                          ),
+                        ),
                       ),
                       SizedBox(
                         height: 20,
@@ -263,9 +351,40 @@ class _SignUpState extends State<SignUpPage> {
                       Row(
                         children: [
                           ElevatedButton(
-                            onPressed: register,
+                            onPressed: getImage,
                             child: Text(
-                              'Cadastrar',
+                              'Selecionar Imagem',
+                              style: TextStyle(
+                                  color: AppColors.green,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.white,
+                              ),
+                              minimumSize: MaterialStateProperty.all<Size>(
+                                Size(350, 60),
+                              ),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Cadastrar Pet',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -290,80 +409,6 @@ class _SignUpState extends State<SignUpPage> {
                       ),
                       SizedBox(
                         height: 20,
-                      ),
-                      Row(children: <Widget>[
-                        Expanded(
-                          child: new Container(
-                              margin: const EdgeInsets.only(
-                                  left: 20.0, right: 20.0),
-                              child: Divider(
-                                color: AppColors.grey[700],
-                                height: 50,
-                              )),
-                        ),
-                        Text(
-                          "ou",
-                          style: TextStyle(
-                            color: AppColors.grey[700],
-                          ),
-                        ),
-                        Expanded(
-                          child: new Container(
-                              margin: const EdgeInsets.only(
-                                  left: 20.0, right: 20.0),
-                              child: Divider(
-                                color: AppColors.grey[700],
-                                height: 36,
-                              )),
-                        ),
-                      ]),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Center(
-                              child: SvgPicture.asset(_faceLogo),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.white,
-                              ),
-                              minimumSize: MaterialStateProperty.all<Size>(
-                                Size(100, 60),
-                              ),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Center(
-                              child: SvgPicture.asset(_googleLogo),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.white,
-                              ),
-                              minimumSize: MaterialStateProperty.all<Size>(
-                                Size(100, 60),
-                              ),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
                       ),
                     ],
                   ),
