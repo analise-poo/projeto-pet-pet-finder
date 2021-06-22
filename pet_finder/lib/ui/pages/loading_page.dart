@@ -7,6 +7,8 @@ class LoadingPage extends StatefulWidget {
 
   @override
   _LoadingPageState createState() => _LoadingPageState();
+
+  static String pageName = '/loading';
 }
 
 class _LoadingPageState extends State<LoadingPage> {

@@ -46,7 +46,7 @@ class _PetDetailsState extends State<PetDetails> {
                         Navigator.of(context).pop();
                       },
                       child: Icon(
-                        Icons.arrow_back_ios_new,
+                        Icons.arrow_back,
                         color: AppColors.green,
                       ),
                       style: ButtonStyle(
@@ -113,7 +113,7 @@ class _PetDetailsState extends State<PetDetails> {
                         child: Row(
                           children: [
                             Icon(
-                              Icons.male,
+                              Icons.person,
                               color: AppColors.blue,
                             ),
                             Padding(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
+import 'package:pet_finder/state/get/getx_bottom_controller.dart';
 import 'package:pet_finder/ui/pages/pages.dart';
 import 'package:pet_finder/ui/utils/colors.dart';
 import '../utils/utils.dart';
@@ -15,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final String _appBarBackground = "assets/images/BackgroundAppBarHome.svg";
+  final GetxBottomController controller = Get.find<GetxBottomController>();
 
   List _nearlyLostPets = [
     {

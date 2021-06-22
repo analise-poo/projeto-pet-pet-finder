@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:pet_finder/ui/utils/colors.dart';
-import '../utils/utils.dart';
+import '../../utils/utils.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -51,7 +51,7 @@ class _SignUpState extends State<SignUpPage> {
                       Navigator.of(context).pushNamed('/login');
                     },
                     child: Icon(
-                      Icons.arrow_back_ios_new,
+                      Icons.arrow_back,
                       color: AppColors.green,
                     ),
                     style: ButtonStyle(
