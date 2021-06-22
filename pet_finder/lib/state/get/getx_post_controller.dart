@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart'
     as FSStorage;
@@ -30,11 +31,11 @@ class GetxPostController extends GetxController {
     }
   }
 
-  Future<void> details() async {
+  Future<List> details() async {
     final FSStorage.FlutterSecureStorage storage =
         Get.find<FSStorage.FlutterSecureStorage>();
 
-    var token = storage.read(key: 'token');
+    var token = await storage.read(key: 'token');
 
     try {
       print('GET api/posts/details');
@@ -49,7 +50,7 @@ class GetxPostController extends GetxController {
         ),
       );
 
-      print(response);
+      return response.data;
     } on DioError catch (d) {
       print('MESSAGE: ${d.message}');
       throw Exception('Aconteceu um erro no Dio!');

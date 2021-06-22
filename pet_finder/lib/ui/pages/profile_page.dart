@@ -44,50 +44,6 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.075,
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: AppColors.white[600],
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.person,
-                              color: AppColors.green,
-                              size: MediaQuery.of(context).size.width * 0.075,
-                            ),
-                            SizedBox(
-                              child: Text(
-                                'Jorge Luiz',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.075,
-                          width: MediaQuery.of(context).size.height * 0.075,
-                          child: Image.network(
-                            'https://uifaces.co/our-content/donated/1H_7AxP0.jpg',
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
               ),
             ),
           ),
@@ -105,10 +61,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 20,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Seus Dados:",
+                      "Seu Perfil",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -121,33 +77,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 20,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.075,
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColors.white[600],
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.email,
-                            color: AppColors.green,
-                            size: MediaQuery.of(context).size.width * 0.06,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5),
-                            child: SizedBox(
-                              child: Text(
-                                'Avatar',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ),
-                          )
-                        ],
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.height * 0.2,
+                        child: Image.network(
+                          'https://uifaces.co/our-content/donated/1H_7AxP0.jpg',
+                        ),
                       ),
                     ),
                   ],
@@ -169,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Row(
                         children: [
                           Icon(
-                            Icons.email,
+                            Icons.person,
                             color: AppColors.green,
                             size: MediaQuery.of(context).size.width * 0.06,
                           ),
@@ -204,7 +144,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Row(
                         children: [
                           Icon(
-                            Icons.phone_android,
+                            Icons.email,
                             color: AppColors.green,
                             size: MediaQuery.of(context).size.width * 0.06,
                           ),
@@ -239,7 +179,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Row(
                         children: [
                           Icon(
-                            Icons.email,
+                            Icons.phone_android,
                             color: AppColors.green,
                             size: MediaQuery.of(context).size.width * 0.06,
                           ),

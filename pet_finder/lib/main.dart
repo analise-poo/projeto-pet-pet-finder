@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:pet_finder/ui/pages/login/login_binding.dart';
+import 'package:pet_finder/ui/pages/post/include_page.dart';
 import 'package:pet_finder/ui/pages/register/singup_binding.dart';
 import 'package:pet_finder/ui/pages/post/post_binding.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Poppins',
       ),
-      initialRoute: PetDetails.pageName,
+      initialRoute: LoginPage.pageName,
       // routes: {
       //   '/': (context) => HomePage(),
       //   IncludePage.pageName: (context) => IncludePage(),

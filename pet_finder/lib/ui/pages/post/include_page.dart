@@ -34,7 +34,7 @@ class _IncludePageState extends State<IncludePage> {
   String _breed;
   String _sex;
   String _lsAddress;
-  DateTime _lsDateTime;
+  String _lsDateTime;
   String _observation;
 
   void createPost() async {
@@ -114,7 +114,7 @@ class _IncludePageState extends State<IncludePage> {
                             ),
                             SizedBox(
                               child: Text(
-                                'Lucas Magalhães Brest',
+                                'Jorge Luiz',
                                 style: TextStyle(fontSize: 16),
                               ),
                             )
@@ -163,6 +163,37 @@ class _IncludePageState extends State<IncludePage> {
                     physics: ScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: getImage,
+                            child: Text(
+                              'Selecionar Imagem do Pet',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                AppColors.purple,
+                              ),
+                              minimumSize: MaterialStateProperty.all<Size>(
+                                Size(350, 60),
+                              ),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(
                         height: 20,
                       ),
@@ -271,7 +302,7 @@ class _IncludePageState extends State<IncludePage> {
                         height: 20,
                       ),
                       TextField(
-                        keyboardType: TextInputType.datetime,
+                        keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: AppColors.white[600],
@@ -346,45 +377,14 @@ class _IncludePageState extends State<IncludePage> {
                         ),
                       ),
                       SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          ElevatedButton(
-                            onPressed: getImage,
-                            child: Text(
-                              'Selecionar Imagem',
-                              style: TextStyle(
-                                  color: AppColors.green,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.white,
-                              ),
-                              minimumSize: MaterialStateProperty.all<Size>(
-                                Size(350, 60),
-                              ),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
                         height: 30,
                       ),
                       Row(
                         children: [
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: createPost,
                             child: Text(
-                              'Cadastrar Pet',
+                              'Postar',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

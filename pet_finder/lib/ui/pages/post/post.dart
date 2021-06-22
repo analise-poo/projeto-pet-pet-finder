@@ -1,2 +1,2 @@
 export 'post_binding.dart';
-export 'post_page.dart';
+export 'include_page.dart';
