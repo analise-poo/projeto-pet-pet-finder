@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
           "https://images.unsplash.com/photo-1591608971358-f93643d11763?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
     },
     {
-      'name': "Diana",
+      'name': "Pedroca",
       'breed': "Husky Siberiano",
       'photo':
           "https://images.unsplash.com/photo-1568572933382-74d440642117?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80"
@@ -174,7 +174,10 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Text(
                             "Pets que se perderam pertinho",
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.grey[900],
+                            ),
                           )
                         ],
                       ),
@@ -194,15 +197,16 @@ class _HomePageState extends State<HomePage> {
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: AppColors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            offset: const Offset(1, 1),
-                                            blurRadius: 2,
-                                            spreadRadius: 0,
-                                            color: AppColors.grey),
-                                      ]),
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: AppColors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          offset: const Offset(1, 1),
+                                          blurRadius: 2,
+                                          spreadRadius: 0,
+                                          color: AppColors.grey),
+                                    ],
+                                  ),
                                   height:
                                       MediaQuery.of(context).size.height * 0.35,
                                   width:
@@ -221,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                                         child: ClipRRect(
                                           child: Image.network(
                                             _nearlyLostPets[index]['photo'],
-                                            fit: BoxFit.fill,
+                                            fit: BoxFit.cover,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -274,12 +278,15 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                          top: 60, left: 20, right: 20, bottom: 20),
+                          top: 40, left: 20, right: 20, bottom: 20),
                       child: Row(
                         children: [
                           Text(
                             "Pets que se perderam hoje",
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.grey[900],
+                            ),
                           ),
                         ],
                       ),
@@ -332,7 +339,7 @@ class _HomePageState extends State<HomePage> {
                                         child: ClipRRect(
                                           child: Image.network(
                                             _nearlyLostPets[index]['photo'],
-                                            fit: BoxFit.fill,
+                                            fit: BoxFit.cover,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(10),

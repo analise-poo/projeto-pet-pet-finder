@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: HomePage.pageName,
       routes: {
-        '/': (context) => PetDetails(),
+        '/': (context) => HomePage(),
         IncludePage.pageName: (context) => IncludePage(),
         ProfilePage.pageName: (context) => ProfilePage(),
         LoginPage.pageName: (context) => LoginPage(),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'dart:io';
 import 'package:pet_finder/ui/utils/colors.dart';
 import '../utils/utils.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -16,6 +17,17 @@ class IncludePage extends StatefulWidget {
 
 class _IncludePageState extends State<IncludePage> {
   final String _appBarBackground = "assets/images/BackgroundAppBarHome.svg";
+
+  final _picker = ImagePicker();
+
+  File _image;
+
+  Future getImage() async {
+    final _pickedFile = await _picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      _image = File(_pickedFile.path);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +68,13 @@ class _IncludePageState extends State<IncludePage> {
                         child: Row(
                           children: [
                             Icon(
-                              Icons.room,
+                              Icons.person,
                               color: AppColors.green,
                               size: MediaQuery.of(context).size.width * 0.075,
                             ),
                             SizedBox(
                               child: Text(
-                                'Gleba Palhano',
+                                'Lucas Magalhães Brest',
                                 style: TextStyle(fontSize: 16),
                               ),
                             )
@@ -109,12 +121,15 @@ class _IncludePageState extends State<IncludePage> {
                   physics: ScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   children: <Widget>[
+                    SizedBox(
+                      height: 20,
+                    ),
                     TextField(
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: AppColors.white[600],
-                        labelText: "Nome",
+                        labelText: "Nome do Pet",
                         labelStyle: TextStyle(color: AppColors.grey[700]),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: const BorderRadius.all(
@@ -136,11 +151,11 @@ class _IncludePageState extends State<IncludePage> {
                       height: 20,
                     ),
                     TextField(
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: AppColors.white[600],
-                        labelText: "Email",
+                        labelText: "Raça",
                         labelStyle: TextStyle(color: AppColors.grey[700]),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: const BorderRadius.all(
@@ -162,11 +177,11 @@ class _IncludePageState extends State<IncludePage> {
                       height: 20,
                     ),
                     TextField(
-                      keyboardType: TextInputType.phone,
+                      keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: AppColors.white[600],
-                        labelText: "Celular",
+                        labelText: "Sexo",
                         labelStyle: TextStyle(color: AppColors.grey[700]),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: const BorderRadius.all(
@@ -188,11 +203,89 @@ class _IncludePageState extends State<IncludePage> {
                       height: 20,
                     ),
                     TextField(
-                      keyboardType: TextInputType.visiblePassword,
+                      keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: AppColors.white[600],
-                        labelText: "Senha",
+                        labelText: "Local",
+                        labelStyle: TextStyle(color: AppColors.grey[700]),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 0.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 0.5),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      keyboardType: TextInputType.datetime,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: AppColors.white[600],
+                        labelText: "Data",
+                        labelStyle: TextStyle(color: AppColors.grey[700]),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 0.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 0.5),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      keyboardType: TextInputType.name,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: AppColors.white[600],
+                        labelText: "Horário",
+                        labelStyle: TextStyle(color: AppColors.grey[700]),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 0.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 0.5),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      keyboardType: TextInputType.name,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: AppColors.white[600],
+                        labelText: "Observações",
                         labelStyle: TextStyle(color: AppColors.grey[700]),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: const BorderRadius.all(
@@ -216,9 +309,40 @@ class _IncludePageState extends State<IncludePage> {
                     Row(
                       children: [
                         ElevatedButton(
+                          onPressed: getImage,
+                          child: Text(
+                            'Selecionar Imagem',
+                            style: TextStyle(
+                                color: AppColors.green,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.white,
+                            ),
+                            minimumSize: MaterialStateProperty.all<Size>(
+                              Size(350, 60),
+                            ),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children: [
+                        ElevatedButton(
                           onPressed: () {},
                           child: Text(
-                            'Cadastrar',
+                            'Cadastrar Pet',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,

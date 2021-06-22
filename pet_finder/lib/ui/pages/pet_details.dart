@@ -8,6 +8,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 class PetDetails extends StatefulWidget {
   PetDetails({Key key}) : super(key: key);
 
+  static String pageName = '/pet-details';
+
   @override
   _PetDetailsState createState() => _PetDetailsState();
 }
@@ -24,12 +26,15 @@ class _PetDetailsState extends State<PetDetails> {
               height: MediaQuery.of(context).size.height * 0.45,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                ),
                 image: DecorationImage(
                   image: NetworkImage(
                     'https://images.unsplash.com/photo-1568572933382-74d440642117?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80',
                   ),
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
               child: Padding(
@@ -250,7 +255,7 @@ class _PetDetailsState extends State<PetDetails> {
                       ElevatedButton(
                         onPressed: () {},
                         child: Text(
-                          'ENCONTREI',
+                          'Encontrei',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,

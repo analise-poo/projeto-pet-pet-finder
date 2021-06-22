@@ -15,6 +15,10 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final String _appBarBackground = "assets/images/BackgroundAppBarHome.svg";
 
+  String _nameProfile;
+  num _phoneProfile;
+  String _emailProfile;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +97,99 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Column(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Seus Dados:",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: AppColors.grey[900],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.075,
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: AppColors.white[600],
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.email,
+                            color: AppColors.green,
+                            size: MediaQuery.of(context).size.width * 0.06,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: SizedBox(
+                              child: Text(
+                                'jorge.souza@edu.unifil.br',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.075,
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: AppColors.white[600],
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.phone_android,
+                            color: AppColors.green,
+                            size: MediaQuery.of(context).size.width * 0.06,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: SizedBox(
+                              child: Text(
+                                '(43) 99999-0010',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

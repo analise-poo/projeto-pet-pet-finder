@@ -12,10 +12,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final String _imageLogo = "assets/images/WhiteLogo.svg";
-  final String _appLoginBackground = "assets/images/BackgroundLogin.svg";
-  final String _faceLogo = "assets/images/FacebookIcon.svg";
-  final String _googleLogo = "assets/images/GoogleIcon.svg";
+  String _imageLogo = "assets/images/WhiteLogo.svg";
+  String _appLoginBackground = "assets/images/BackgroundLogin.svg";
+  String _faceLogo = "assets/images/FacebookIcon.svg";
+  String _googleLogo = "assets/images/GoogleIcon.svg";
+
+  String _emailLogin;
+  String _passwordLogin;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 height: MediaQuery.of(context).size.height,
                 padding: EdgeInsets.only(
-                  top: 40,
+                  top: 60,
                   left: 20,
                   right: 20,
                 ),
@@ -63,6 +66,11 @@ class _LoginPageState extends State<LoginPage> {
                   scrollDirection: Axis.vertical,
                   children: <Widget>[
                     TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          _emailLogin = text;
+                        });
+                      },
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         filled: true,
@@ -89,6 +97,11 @@ class _LoginPageState extends State<LoginPage> {
                       height: 20,
                     ),
                     TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          _passwordLogin = text;
+                        });
+                      },
                       keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
                         filled: true,

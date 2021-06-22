@@ -19,6 +19,11 @@ class _SignUpState extends State<SignUpPage> {
   final String _faceLogo = "assets/images/FacebookIcon.svg";
   final String _googleLogo = "assets/images/GoogleIcon.svg";
 
+  String _nameRegister;
+  num _phoneRegister;
+  String _emailRegister;
+  String _passwordRegister;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,13 +41,45 @@ class _SignUpState extends State<SignUpPage> {
             preferredSize:
                 Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
             child: Padding(
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.width * 0.15,
-              ),
-              child: SvgPicture.asset(
-                _imageLogo,
-                width: 120,
-                height: 120,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/login');
+                    },
+                    child: Icon(
+                      Icons.arrow_back_ios_new,
+                      color: AppColors.green,
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.white,
+                      ),
+                      minimumSize: MaterialStateProperty.all<Size>(
+                        Size(60, 60),
+                      ),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.width * 0.15,
+                      left: MediaQuery.of(context).size.width * 0.15,
+                    ),
+                    child: SvgPicture.asset(
+                      _imageLogo,
+                      width: 120,
+                      height: 120,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -67,6 +104,11 @@ class _SignUpState extends State<SignUpPage> {
                   scrollDirection: Axis.vertical,
                   children: <Widget>[
                     TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          _nameRegister = text;
+                        });
+                      },
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         filled: true,
@@ -93,32 +135,11 @@ class _SignUpState extends State<SignUpPage> {
                       height: 20,
                     ),
                     TextField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: AppColors.white[600],
-                        labelText: "Email",
-                        labelStyle: TextStyle(color: AppColors.grey[700]),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(10.0),
-                          ),
-                          borderSide:
-                              BorderSide(color: Colors.white, width: 0.5),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(10.0),
-                          ),
-                          borderSide:
-                              BorderSide(color: Colors.white, width: 0.5),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          _phoneRegister = num.parse(text);
+                        });
+                      },
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         filled: true,
@@ -145,6 +166,42 @@ class _SignUpState extends State<SignUpPage> {
                       height: 20,
                     ),
                     TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          _emailRegister = text;
+                        });
+                      },
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: AppColors.white[600],
+                        labelText: "Email",
+                        labelStyle: TextStyle(color: AppColors.grey[700]),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 0.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 0.5),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      onChanged: (text) {
+                        setState(() {
+                          _passwordRegister = text;
+                        });
+                      },
                       keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
                         filled: true,
