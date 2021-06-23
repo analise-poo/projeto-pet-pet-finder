@@ -146,6 +146,7 @@ class _IncludePageState extends State<IncludePage> {
         ),
       ),
       body: SingleChildScrollView(
+        physics: ScrollPhysics(),
         child: SafeArea(
           child: Column(
             children: [

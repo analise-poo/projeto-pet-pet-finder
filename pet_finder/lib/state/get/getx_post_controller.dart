@@ -59,4 +59,33 @@ class GetxPostController extends GetxController {
       throw Exception('Aconteceu algum erro inesperado!');
     }
   }
+
+  Future getPost(int postId) async {
+    final FSStorage.FlutterSecureStorage storage =
+        Get.find<FSStorage.FlutterSecureStorage>();
+
+    var token = await storage.read(key: 'token');
+
+    try {
+      print('GET api/posts/{postId}');
+
+      var response = await Dio().get(
+        'https://backend-pet-finder.herokuapp.com/api/posts/$postId',
+        options: Options(
+          headers: {
+            HttpHeaders.contentTypeHeader: 'application/json',
+            HttpHeaders.authorizationHeader: 'Bearer $token',
+          },
+        ),
+      );
+
+      return response.data;
+    } on DioError catch (d) {
+      print('MESSAGE: ${d.message}');
+      throw Exception('Aconteceu um erro no Dio!');
+    } catch (e) {
+      print(e);
+      throw Exception('Aconteceu algum erro inesperado!');
+    }
+  }
 }

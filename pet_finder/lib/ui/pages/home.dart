@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:pet_finder/models/post_model.dart';
 import 'package:pet_finder/state/get/getx_post_controller.dart';
 import 'package:pet_finder/ui/pages/pages.dart';
 import 'package:pet_finder/ui/pages/post/include_page.dart';
@@ -21,12 +20,6 @@ class _HomePageState extends State<HomePage> {
   final String _appBarBackground = "assets/images/BackgroundAppBarHome.svg";
 
   final GetxPostController controller = Get.find<GetxPostController>();
-
-  List _todayLostPets = [];
-
-  Future getDetails() async {
-    return await controller.details();
-  }
 
   List _nearlyLostPets = [
     {
@@ -56,6 +49,12 @@ class _HomePageState extends State<HomePage> {
     {
       'name': "Pedroca",
       'breed': "Vira-lata",
+      'photo':
+          "https://images.unsplash.com/photo-1598991712061-3132295b5d7d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=555&q=80"
+    },
+    {
+      'name': "Bidu",
+      'breed': "Golden Retrivier",
       'photo':
           "https://images.unsplash.com/photo-1598991712061-3132295b5d7d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=555&q=80"
     }
@@ -406,8 +405,10 @@ class _HomePageState extends State<HomePage> {
                                                       0.45,
                                                   child: ClipRRect(
                                                     child: Image.network(
-                                                      snapshot.data[index]
-                                                          ['image'],
+                                                      // snapshot.data[index]
+                                                      //     ['image'],
+                                                      _nearlyLostPets[index]
+                                                          ['photo'],
                                                       fit: BoxFit.cover,
                                                     ),
                                                     borderRadius:
