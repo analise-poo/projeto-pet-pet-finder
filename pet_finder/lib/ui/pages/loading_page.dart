@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:pet_finder/ui/pages/home.dart';
+import 'package:pet_finder/ui/pages/home/home_page.dart';
 import 'package:pet_finder/ui/pages/login/login.dart';
 import '../utils/utils.dart';
 

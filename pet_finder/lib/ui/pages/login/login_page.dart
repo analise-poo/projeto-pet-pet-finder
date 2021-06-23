@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_finder/models/login_model.dart';
 import 'package:pet_finder/state/get/getx_login_controller.dart';
-import 'package:pet_finder/ui/pages/bindings/home_page_binding.dart';
+import 'package:pet_finder/ui/pages/home/home_.dart';
 import 'package:pet_finder/ui/utils/colors.dart';
 import '../../utils/utils.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../home.dart';
 
 class LoginPage extends StatefulWidget {
   @override

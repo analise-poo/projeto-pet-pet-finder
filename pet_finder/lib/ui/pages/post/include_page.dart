@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pet_finder/models/post_model.dart';
 import 'package:pet_finder/state/get/getx_post_controller.dart';
-import 'package:pet_finder/ui/pages/bindings/home_page_binding.dart';
-import 'package:pet_finder/ui/pages/home.dart';
-import 'dart:io';
+import 'package:pet_finder/ui/pages/home/home_.dart';
 import 'package:pet_finder/ui/utils/colors.dart';
 import '../../utils/utils.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -34,7 +32,8 @@ class _IncludePageState extends State<IncludePage> {
   String _breed;
   String _sex;
   String _lsAddress;
-  String _lsDateTime;
+  String _date;
+  String _time;
   String _observation;
 
   void createPost() async {
@@ -46,10 +45,11 @@ class _IncludePageState extends State<IncludePage> {
               breed: _breed,
               sex: _sex,
               lsAddress: _lsAddress,
-              lsDateTime: _lsDateTime,
-              observation: _observation))
+              lsDateTime: _date + '.' + _time,
+              observation: _observation,
+              userId: 1))
           .then((value) {
-        Get.to(() => HomePage(), binding: HomePageBinding());
+        Navigator.of(context).pushReplacementNamed(HomePage.pageName);
       }).onError((error, stackTrace) {
         print(error);
         Get.snackbar(
@@ -220,6 +220,11 @@ class _IncludePageState extends State<IncludePage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
+                        onChanged: (text) {
+                          setState(() {
+                            _name = text;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 20,
@@ -246,6 +251,11 @@ class _IncludePageState extends State<IncludePage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
+                        onChanged: (text) {
+                          setState(() {
+                            _breed = text;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 20,
@@ -272,6 +282,11 @@ class _IncludePageState extends State<IncludePage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
+                        onChanged: (text) {
+                          setState(() {
+                            _sex = text;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 20,
@@ -298,6 +313,11 @@ class _IncludePageState extends State<IncludePage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
+                        onChanged: (text) {
+                          setState(() {
+                            _lsAddress = text;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 20,
@@ -324,6 +344,11 @@ class _IncludePageState extends State<IncludePage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
+                        onChanged: (text) {
+                          setState(() {
+                            _date = text;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 20,
@@ -350,6 +375,11 @@ class _IncludePageState extends State<IncludePage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
+                        onChanged: (text) {
+                          setState(() {
+                            _time = text;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 20,
@@ -376,6 +406,11 @@ class _IncludePageState extends State<IncludePage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
+                        onChanged: (text) {
+                          setState(() {
+                            _observation = text;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 30,
@@ -383,6 +418,7 @@ class _IncludePageState extends State<IncludePage> {
                       Row(
                         children: [
                           ElevatedButton(
+                            // onPressed: createPost,
                             onPressed: createPost,
                             child: Text(
                               'Postar',

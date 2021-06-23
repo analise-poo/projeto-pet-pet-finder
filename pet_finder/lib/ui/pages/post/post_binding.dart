@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class PostBinding extends Bindings {
   @override
   void dependencies() {
+    Get.put<FlutterSecureStorage>(FlutterSecureStorage());
     Get.put<GetxPostController>(GetxPostController());
   }
 }
