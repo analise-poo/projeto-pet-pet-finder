@@ -2,21 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_finder/state/get/getx_post_controller.dart';
 import 'package:pet_finder/ui/utils/colors.dart';
-import '../utils/utils.dart';
+import '../../utils/utils.dart';
 
-import 'package:flutter_svg/flutter_svg.dart';
-
-class PetDetails extends StatefulWidget {
+class PostDetails extends StatefulWidget {
   static String pageName = '/pet-details';
   final int postId;
 
-  PetDetails({this.postId});
+  PostDetails({this.postId});
 
   @override
-  _PetDetailsState createState() => _PetDetailsState();
+  _PostDetailsState createState() => _PostDetailsState();
 }
 
-class _PetDetailsState extends State<PetDetails> {
+class _PostDetailsState extends State<PostDetails> {
   final GetxPostController controller = Get.find<GetxPostController>();
 
   @override
@@ -24,6 +22,15 @@ class _PetDetailsState extends State<PetDetails> {
     return FutureBuilder(
       future: Future.value(controller.getPost(widget.postId)),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
+        final dateTime = snapshot.data['ls_datetime'].toString().split('T');
+
+        Color iconSexColor;
+        if (snapshot.data['sex'] == 'F') {
+          iconSexColor = AppColors.pink;
+        } else {
+          iconSexColor = AppColors.blue;
+        }
+
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: Text(
@@ -144,7 +151,7 @@ class _PetDetailsState extends State<PetDetails> {
                                     children: [
                                       Icon(
                                         Icons.person,
-                                        color: AppColors.blue,
+                                        color: iconSexColor,
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(left: 5),
@@ -210,7 +217,7 @@ class _PetDetailsState extends State<PetDetails> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
-                                    snapshot.data['ls_datetime'],
+                                    dateTime[0],
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: AppColors.grey[600]),
@@ -231,7 +238,7 @@ class _PetDetailsState extends State<PetDetails> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
-                                    snapshot.data['ls_datetime'],
+                                    dateTime[1],
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: AppColors.grey[600]),

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:pet_finder/state/get/getx_post_controller.dart';
-import 'package:pet_finder/ui/pages/pages.dart';
 import 'package:pet_finder/ui/pages/post/include_page.dart';
+import 'package:pet_finder/ui/pages/post/post_details.dart';
+import 'package:pet_finder/ui/pages/user/profile_page.dart';
 import 'package:pet_finder/ui/utils/colors.dart';
 import '../../utils/utils.dart';
 
@@ -211,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => PetDetails(
+                                              builder: (context) => PostDetails(
                                                 postId: snapshot.data[index]
                                                     ['id'],
                                               ),
@@ -350,7 +351,7 @@ class _HomePageState extends State<HomePage> {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => PetDetails(
+                                              builder: (context) => PostDetails(
                                                 postId: snapshot.data[index]
                                                     ['id'],
                                               ),
@@ -464,7 +465,7 @@ class _HomePageState extends State<HomePage> {
     } else if (index == 1) {
       return IncludePage();
     } else if (index == 2) {
-      return ProfilePage();
+      return ProfilePage(userId: 5);
     }
   }
 }

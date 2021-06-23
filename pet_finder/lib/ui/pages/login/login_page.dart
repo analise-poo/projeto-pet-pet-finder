@@ -292,7 +292,7 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Não tem uma conta?',
+                            'Não tem uma conta? ',
                             style: TextStyle(
                               color: AppColors.grey[700],
                             ),

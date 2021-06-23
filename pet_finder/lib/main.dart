@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:pet_finder/ui/pages/home/home_.dart';
-import 'package:pet_finder/ui/pages/login/login_binding.dart';
-import 'package:pet_finder/ui/pages/post/include_page.dart';
-import 'package:pet_finder/ui/pages/register/singup_binding.dart';
-import 'package:pet_finder/ui/pages/post/post_binding.dart';
-import 'package:pet_finder/ui/pages/user/user.dart';
 
 import 'ui/pages/pages.dart';
 
@@ -52,8 +46,8 @@ class MyApp extends StatelessWidget {
           binding: RegisterBinding(),
         ),
         GetPage(
-          name: PetDetails.pageName,
-          page: () => PetDetails(),
+          name: PostDetails.pageName,
+          page: () => PostDetails(),
           binding: PostBinding(),
         ),
       ],

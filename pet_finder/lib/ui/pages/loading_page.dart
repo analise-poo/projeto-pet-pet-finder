@@ -32,8 +32,7 @@ class _LoadingPageState extends State<LoadingPage> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget buildLoading() {
     return Container(
       color: AppColors.green,
       child: Column(
@@ -43,6 +42,34 @@ class _LoadingPageState extends State<LoadingPage> {
           SvgPicture.asset(imageLogo),
         ],
       ),
+    );
+  }
+
+  Widget buildError() => Container(
+        child: Center(
+          child: Icon(
+            Icons.error_outline,
+            size: 48,
+            color: Colors.red,
+          ),
+        ),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<void>(
+      future: loading(context),
+      initialData: true,
+      builder: (context, snapshot) {
+        if (snapshot.hasError)
+          return Container(
+            child: Center(
+              child: Text('Error'),
+            ),
+          );
+
+        return buildLoading();
+      },
     );
   }
 }

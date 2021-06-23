@@ -75,7 +75,7 @@ class GetxPostController extends GetxController {
     var token = await storage.read(key: 'token');
 
     try {
-      print('GET api/posts/{postId}');
+      print('GET api/posts/$postId');
 
       var response = await Dio().get(
         'https://backend-pet-finder.herokuapp.com/api/posts/$postId',

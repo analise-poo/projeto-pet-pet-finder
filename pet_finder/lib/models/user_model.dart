@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 class UserModel {
   final String avatar;
   final String name;
@@ -13,5 +15,14 @@ class UserModel {
     data['phone'] = this.phone;
     data['email'] = this.email;
     return data;
+  }
+
+  Future<FormData> toFormData() async {
+    return FormData.fromMap({
+      'avatar': await MultipartFile.fromFile(this.avatar),
+      'name': this.name,
+      'phone': this.phone,
+      'email': this.email
+    });
   }
 }
