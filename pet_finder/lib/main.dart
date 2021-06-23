@@ -1,4 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:pet_finder/ui/pages/login/login_binding.dart';
+import 'package:pet_finder/ui/pages/post/include_page.dart';
+import 'package:pet_finder/ui/pages/register/singup_binding.dart';
+import 'package:pet_finder/ui/pages/post/post_binding.dart';
+
+import 'ui/pages/bindings/home_page_binding.dart';
+import 'ui/pages/pages.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,55 +17,51 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Pet Finder',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Poppins',
       ),
-      home: Home(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: TextField(
-          obscureText: true,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Password',
-          ),
+      initialRoute: LoginPage.pageName,
+      // routes: {
+      //   '/': (context) => HomePage(),
+      //   IncludePage.pageName: (context) => IncludePage(),
+      //   ProfilePage.pageName: (context) => ProfilePage(),
+      //   LoginPage.pageName: (context) => LoginPage(),
+      //   SignUpPage.pageName: (context) => SignUpPage()
+      // },
+      getPages: [
+        GetPage(
+          name: HomePage.pageName,
+          page: () => HomePage(),
+          binding: HomePageBinding(),
         ),
-        actions: <Widget>[
-          CircleAvatar(
-            backgroundColor: Colors.yellow,
-            radius: 30,
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.grey,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            label: 'Home',
-            icon: Icon(Icons.home),
-          ),
-          BottomNavigationBarItem(
-            label: 'Perfil',
-            icon: Icon(Icons.person),
-          ),
-          BottomNavigationBarItem(
-            label: 'Configuração',
-            icon: Icon(Icons.settings),
-          ),
-        ],
-      ),
+        GetPage(
+          name: IncludePage.pageName,
+          page: () => IncludePage(),
+          binding: PostBinding(),
+        ),
+        GetPage(
+          name: ProfilePage.pageName,
+          page: () => ProfilePage(),
+        ),
+        GetPage(
+          name: LoginPage.pageName,
+          page: () => LoginPage(),
+          binding: LoginBinding(),
+        ),
+        GetPage(
+          name: SignUpPage.pageName,
+          page: () => SignUpPage(),
+          binding: RegisterBinding(),
+        ),
+        GetPage(
+          name: PetDetails.pageName,
+          page: () => PetDetails(),
+        ),
+      ],
+      debugShowCheckedModeBanner: false,
     );
   }
 }
