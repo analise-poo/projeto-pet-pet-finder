@@ -46,11 +46,11 @@ class PostsController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'name' => 'required|max:20',
             'breed' => 'required',
-            'sex' => 'required|max:1',
+            'sex' => 'required',
             'ls_address' => 'required|max:40',
-            'ls_datetime' => 'required|date',
+            'ls_datetime' => 'required',
             'observation' => 'max:40',
-            'user_id' => 'required',
+            'user_id' => 'numeric',
         ]);
 
         $post = Post::create([
@@ -59,7 +59,7 @@ class PostsController extends Controller
             'breed' => $request->input('breed'),
             'sex' => $request->input('sex'),
             'ls_address' => $request->input('ls_address'),
-            'ls_datetime' => strtotime($request->input('ls_datetime')),
+            'ls_datetime' => $request->input('ls_datetime'),
             'observation' => $request->input('observation'),
             'user_id' => $request->input('user_id'),
         ]);
@@ -92,9 +92,9 @@ class PostsController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg|max:2048',
             'name' => 'required|max:20',
             'breed' => 'required',
-            'sex' => 'required|max:1',
+            'sex' => 'required',
             'ls_address' => 'required|max:40',
-            'ls_datetime' => 'required|date',
+            'ls_datetime' => 'required',
             'observation' => 'max:40',
         ]);
 

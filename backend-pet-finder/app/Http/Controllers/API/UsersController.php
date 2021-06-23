@@ -29,7 +29,7 @@ class UsersController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'phone' => 'numeric|between:10,11',
+            'phone' => 'required|between:10,11',
             'email' => 'required|unique:users|max:128',
             'password' => 'required|min:16',
         ]);
@@ -65,7 +65,7 @@ class UsersController extends Controller
         $request->validate([
             'avatar' => 'image|mimes:jpeg,png,jpg|max:2048',
             'name' => 'required',
-            'phone' => 'numeric|between:10,11',
+            'phone' => 'required|between:10,11',
             'email' => 'required|max:128',
         ]);
 
