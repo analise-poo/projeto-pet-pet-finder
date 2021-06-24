@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 import 'package:pet_finder/state/get/getx_post_controller.dart';
 import 'package:pet_finder/ui/utils/colors.dart';
@@ -22,15 +23,6 @@ class _PostDetailsState extends State<PostDetails> {
     return FutureBuilder(
       future: Future.value(controller.getPost(widget.postId)),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        final dateTime = snapshot.data['ls_datetime'].toString().split('T');
-
-        Color iconSexColor;
-        if (snapshot.data['sex'] == 'F') {
-          iconSexColor = AppColors.pink;
-        } else {
-          iconSexColor = AppColors.blue;
-        }
-
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: Text(
@@ -43,13 +35,17 @@ class _PostDetailsState extends State<PostDetails> {
             ),
           );
         } else {
-          if (snapshot.hasError)
+          if (snapshot.hasError) {
             return Center(
               child: Text(
                 'Error!',
               ),
             );
-          else
+          } else {
+            var dateTime = DateTime.parse(snapshot.data['ls_datetime']);
+            String formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
+            String formattedTime = DateFormat('kk:mm').format(dateTime);
+
             return Center(
               child: Scaffold(
                 body: SingleChildScrollView(
@@ -151,7 +147,7 @@ class _PostDetailsState extends State<PostDetails> {
                                     children: [
                                       Icon(
                                         Icons.person,
-                                        color: iconSexColor,
+                                        color: AppColors.blue,
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(left: 5),
@@ -217,7 +213,7 @@ class _PostDetailsState extends State<PostDetails> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
-                                    dateTime[0],
+                                    formattedDate,
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: AppColors.grey[600]),
@@ -238,7 +234,7 @@ class _PostDetailsState extends State<PostDetails> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
-                                    dateTime[1],
+                                    formattedTime,
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: AppColors.grey[600]),
@@ -268,6 +264,51 @@ class _PostDetailsState extends State<PostDetails> {
                               ],
                             ),
                             SizedBox(
+                              height: 30,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Dono:',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.grey[900],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.075,
+                                  width: MediaQuery.of(context).size.height *
+                                      0.075,
+                                  child: CircleAvatar(
+                                    radius: 38.0,
+                                    foregroundImage: NetworkImage(
+                                      'https://uifaces.co/our-content/donated/1H_7AxP0.jpg',
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    snapshot.data['user']['name'],
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: AppColors.grey[600]),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
                               height: 25,
                             ),
                             Row(
@@ -286,7 +327,7 @@ class _PostDetailsState extends State<PostDetails> {
                                     ),
                                     minimumSize:
                                         MaterialStateProperty.all<Size>(
-                                      Size(60, 60),
+                                      Size(55, 55),
                                     ),
                                     shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
@@ -295,6 +336,9 @@ class _PostDetailsState extends State<PostDetails> {
                                       ),
                                     ),
                                   ),
+                                ),
+                                SizedBox(
+                                  width: 5,
                                 ),
                                 ElevatedButton(
                                   onPressed: () {},
@@ -312,7 +356,11 @@ class _PostDetailsState extends State<PostDetails> {
                                     ),
                                     minimumSize:
                                         MaterialStateProperty.all<Size>(
-                                      Size(280, 60),
+                                      Size(
+                                        MediaQuery.of(context).size.width * 0.7,
+                                        MediaQuery.of(context).size.height *
+                                            0.1,
+                                      ),
                                     ),
                                     shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
@@ -332,6 +380,7 @@ class _PostDetailsState extends State<PostDetails> {
                 ),
               ),
             );
+          }
         }
       },
     );

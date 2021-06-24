@@ -7,9 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfilePage extends StatefulWidget {
   static String pageName = '/profile';
-  final int userId;
-
-  ProfilePage({this.userId});
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -26,16 +23,19 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.value(controller.getUser(widget.userId)),
+      future: Future.value(controller.getUser()),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: Text(
-              'Carregando Postagem...',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: AppColors.green,
+          return new Container(
+            decoration: new BoxDecoration(color: AppColors.pink),
+            child: Center(
+              child: Text(
+                'Carregando Perfil...',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: AppColors.white,
+                ),
               ),
             ),
           );
@@ -51,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Scaffold(
                 appBar: PreferredSize(
                   preferredSize: Size.fromHeight(
-                      MediaQuery.of(context).size.height * 0.15),
+                      MediaQuery.of(context).size.height * 0.17),
                   child: AppBar(
                     flexibleSpace: Container(
                       child: SvgPicture.asset(
@@ -85,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 20,
+                            height: 5,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -101,14 +101,14 @@ class _ProfilePageState extends State<ProfilePage> {
                             ],
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 10,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(60),
                                 child: SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height * 0.2,
@@ -122,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ],
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 15,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -231,6 +231,35 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                             ],
+                          ),
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed('/update-profile');
+                                },
+                                child: Container(
+                                  padding:
+                                      EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.green,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20.0)),
+                                  ),
+                                  child: Text(
+                                    'Editar Perfil',
+                                    style: TextStyle(
+                                      fontFamily: 'SF Pro',
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),

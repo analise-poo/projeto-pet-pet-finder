@@ -36,6 +36,11 @@ class MyApp extends StatelessWidget {
           binding: UserBinding(),
         ),
         GetPage(
+          name: UpdateProfilePage.pageName,
+          page: () => UpdateProfilePage(),
+          binding: UserBinding(),
+        ),
+        GetPage(
           name: LoginPage.pageName,
           page: () => LoginPage(),
           binding: LoginBinding(),

@@ -33,6 +33,14 @@ class _SignUpState extends State<SignUpPage> {
   String _emailRegister;
   String _passwordRegister;
 
+  bool isObscure = true;
+
+  void toogleVisible() {
+    setState(() {
+      isObscure = !isObscure;
+    });
+  }
+
   void register() async {
     if (_formKey.currentState.validate()) {
       await controller
@@ -60,7 +68,7 @@ class _SignUpState extends State<SignUpPage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
-            Size.fromHeight(MediaQuery.of(context).size.height * 0.25),
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.272),
         child: AppBar(
           flexibleSpace: Container(
             child: SvgPicture.asset(
@@ -102,7 +110,7 @@ class _SignUpState extends State<SignUpPage> {
                   Padding(
                     padding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).size.width * 0.15,
-                      left: MediaQuery.of(context).size.width * 0.15,
+                      left: MediaQuery.of(context).size.width * 0.13,
                     ),
                     child: SvgPicture.asset(
                       _imageLogo,
@@ -125,7 +133,7 @@ class _SignUpState extends State<SignUpPage> {
               Form(
                 key: _formKey,
                 child: Container(
-                  height: MediaQuery.of(context).size.height,
+                  height: MediaQuery.of(context).size.height * 0.90,
                   padding: EdgeInsets.only(
                     top: 20,
                     left: 20,
@@ -231,11 +239,17 @@ class _SignUpState extends State<SignUpPage> {
                       ),
                       TextField(
                         keyboardType: TextInputType.visiblePassword,
+                        obscureText: isObscure,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: AppColors.white[600],
                           labelText: "Senha",
                           labelStyle: TextStyle(color: AppColors.grey[700]),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.visibility),
+                            onPressed: toogleVisible,
+                            autofocus: isObscure,
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
                               const Radius.circular(10.0),
@@ -276,7 +290,10 @@ class _SignUpState extends State<SignUpPage> {
                                 AppColors.green,
                               ),
                               minimumSize: MaterialStateProperty.all<Size>(
-                                Size(350, 60),
+                                Size(
+                                  MediaQuery.of(context).size.width * 0.888,
+                                  MediaQuery.of(context).size.height * 0.1,
+                                ),
                               ),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
@@ -289,7 +306,7 @@ class _SignUpState extends State<SignUpPage> {
                         ],
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Row(children: <Widget>[
                         Expanded(
@@ -318,7 +335,7 @@ class _SignUpState extends State<SignUpPage> {
                         ),
                       ]),
                       SizedBox(
-                        height: 20,
+                        height: 5,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

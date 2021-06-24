@@ -7,10 +7,11 @@ import 'package:get/get.dart';
 import 'package:pet_finder/models/user_model.dart';
 
 class GetxUserController extends GetxController {
-  Future getUser(int userId) async {
+  Future getUser() async {
     final FSStorage.FlutterSecureStorage storage =
         Get.find<FSStorage.FlutterSecureStorage>();
 
+    var userId = await storage.read(key: 'user_id');
     var token = await storage.read(key: 'token');
 
     try {
@@ -66,5 +67,12 @@ class GetxUserController extends GetxController {
       print(e);
       throw Exception('Aconteceu algum erro inesperado!');
     }
+  }
+
+  Future<int> getCurrentUserId() async {
+    final FSStorage.FlutterSecureStorage storage =
+        Get.find<FSStorage.FlutterSecureStorage>();
+
+    return int.parse(await storage.read(key: 'user_id'));
   }
 }

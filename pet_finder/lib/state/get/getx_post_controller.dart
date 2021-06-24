@@ -87,6 +87,7 @@ class GetxPostController extends GetxController {
         ),
       );
 
+      print(response.data);
       return response.data;
     } on DioError catch (d) {
       print('MESSAGE: ${d.message}');

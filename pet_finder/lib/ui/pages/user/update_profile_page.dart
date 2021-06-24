@@ -10,16 +10,16 @@ import '../../utils/utils.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-class IncludePage extends StatefulWidget {
-  static String pageName = 'include-page';
+class UpdateProfilePage extends StatefulWidget {
+  static String pageName = '/update-profile';
 
-  IncludePage({Key key}) : super(key: key);
+  UpdateProfilePage({Key key}) : super(key: key);
 
   @override
-  _IncludePageState createState() => _IncludePageState();
+  _UpdateProfilePage createState() => _UpdateProfilePage();
 }
 
-class _IncludePageState extends State<IncludePage> {
+class _UpdateProfilePage extends State<UpdateProfilePage> {
   final String _appBarBackground = "assets/images/BackgroundAppBarHome.svg";
 
   final _formKey = GlobalKey<FormState>();
@@ -78,7 +78,7 @@ class _IncludePageState extends State<IncludePage> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return new Container(
-            decoration: new BoxDecoration(color: AppColors.purple),
+            decoration: new BoxDecoration(color: AppColors.pink),
             child: Center(
               child: Text(
                 'Carregando Formulário...',
@@ -118,58 +118,6 @@ class _IncludePageState extends State<IncludePage> {
                         left: MediaQuery.of(context).size.width * 0.05,
                         bottom: MediaQuery.of(context).size.width * 0.1,
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.075,
-                                width: MediaQuery.of(context).size.width * 0.7,
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: AppColors.white[600],
-                                ),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.person,
-                                      color: AppColors.green,
-                                      size: MediaQuery.of(context).size.width *
-                                          0.075,
-                                    ),
-                                    SizedBox(
-                                      child: Text(
-                                        snapshot.data['name'],
-                                        style: TextStyle(fontSize: 16),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.075,
-                                  width: MediaQuery.of(context).size.height *
-                                      0.075,
-                                  child: Image.network(
-                                    'https://uifaces.co/our-content/donated/1H_7AxP0.jpg',
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
                     ),
                   ),
                   backgroundColor: Colors.transparent,
@@ -184,7 +132,7 @@ class _IncludePageState extends State<IncludePage> {
                       Form(
                         key: _formKey,
                         child: Container(
-                          height: MediaQuery.of(context).size.height,
+                          height: MediaQuery.of(context).size.height * 0.75,
                           padding: EdgeInsets.only(
                             top: 20,
                             left: 20,
@@ -195,9 +143,6 @@ class _IncludePageState extends State<IncludePage> {
                             physics: ScrollPhysics(),
                             scrollDirection: Axis.vertical,
                             children: <Widget>[
-                              SizedBox(
-                                height: 20,
-                              ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -206,7 +151,7 @@ class _IncludePageState extends State<IncludePage> {
                                     onPressed: getImage,
                                     icon: Icon(Icons.camera_alt),
                                     label: Text(
-                                      'Selecionar Imagem do Pet',
+                                      'Selecionar Avatar',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16,
@@ -239,14 +184,15 @@ class _IncludePageState extends State<IncludePage> {
                                 ],
                               ),
                               SizedBox(
-                                height: 20,
+                                height: 30,
                               ),
-                              TextField(
+                              TextFormField(
                                 keyboardType: TextInputType.name,
+                                initialValue: snapshot.data['name'],
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: AppColors.white[600],
-                                  labelText: "Nome do Pet",
+                                  labelText: "Nome",
                                   labelStyle:
                                       TextStyle(color: AppColors.grey[700]),
                                   focusedBorder: OutlineInputBorder(
@@ -274,12 +220,13 @@ class _IncludePageState extends State<IncludePage> {
                               SizedBox(
                                 height: 20,
                               ),
-                              TextField(
-                                keyboardType: TextInputType.name,
+                              TextFormField(
+                                keyboardType: TextInputType.emailAddress,
+                                initialValue: snapshot.data['email'],
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: AppColors.white[600],
-                                  labelText: "Raça",
+                                  labelText: "Email",
                                   labelStyle:
                                       TextStyle(color: AppColors.grey[700]),
                                   focusedBorder: OutlineInputBorder(
@@ -306,12 +253,13 @@ class _IncludePageState extends State<IncludePage> {
                               SizedBox(
                                 height: 20,
                               ),
-                              TextField(
-                                keyboardType: TextInputType.name,
+                              TextFormField(
+                                keyboardType: TextInputType.phone,
+                                initialValue: snapshot.data['phone'],
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: AppColors.white[600],
-                                  labelText: "Sexo",
+                                  labelText: "Telefone",
                                   labelStyle:
                                       TextStyle(color: AppColors.grey[700]),
                                   focusedBorder: OutlineInputBorder(
@@ -336,134 +284,6 @@ class _IncludePageState extends State<IncludePage> {
                                 },
                               ),
                               SizedBox(
-                                height: 20,
-                              ),
-                              TextField(
-                                keyboardType: TextInputType.name,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: AppColors.white[600],
-                                  labelText: "Local",
-                                  labelStyle:
-                                      TextStyle(color: AppColors.grey[700]),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                      const Radius.circular(10.0),
-                                    ),
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 0.5),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                      const Radius.circular(10.0),
-                                    ),
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 0.5),
-                                  ),
-                                ),
-                                onChanged: (text) {
-                                  setState(() {
-                                    _lsAddress = text;
-                                  });
-                                },
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              TextField(
-                                keyboardType: TextInputType.datetime,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: AppColors.white[600],
-                                  labelText: "Data",
-                                  labelStyle:
-                                      TextStyle(color: AppColors.grey[700]),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                      const Radius.circular(10.0),
-                                    ),
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 0.5),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                      const Radius.circular(10.0),
-                                    ),
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 0.5),
-                                  ),
-                                ),
-                                onChanged: (text) {
-                                  setState(() {
-                                    _date = text;
-                                  });
-                                },
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              TextField(
-                                keyboardType: TextInputType.datetime,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: AppColors.white[600],
-                                  labelText: "Horário",
-                                  labelStyle:
-                                      TextStyle(color: AppColors.grey[700]),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                      const Radius.circular(10.0),
-                                    ),
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 0.5),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                      const Radius.circular(10.0),
-                                    ),
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 0.5),
-                                  ),
-                                ),
-                                onChanged: (text) {
-                                  setState(() {
-                                    _time = text;
-                                  });
-                                },
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              TextField(
-                                keyboardType: TextInputType.name,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: AppColors.white[600],
-                                  labelText: "Observações",
-                                  labelStyle:
-                                      TextStyle(color: AppColors.grey[700]),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                      const Radius.circular(10.0),
-                                    ),
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 0.5),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                      const Radius.circular(10.0),
-                                    ),
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 0.5),
-                                  ),
-                                ),
-                                onChanged: (text) {
-                                  setState(() {
-                                    _observation = text;
-                                  });
-                                },
-                              ),
-                              SizedBox(
                                 height: 30,
                               ),
                               Row(
@@ -471,7 +291,7 @@ class _IncludePageState extends State<IncludePage> {
                                   ElevatedButton(
                                     onPressed: createPost,
                                     child: Text(
-                                      'Postar',
+                                      'Salvar',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,

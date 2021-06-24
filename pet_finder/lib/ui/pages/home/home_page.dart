@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            label: 'Adicionar',
+            label: 'Criar Postagem',
             icon: Icon(Icons.add),
           ),
           BottomNavigationBarItem(
@@ -73,13 +73,16 @@ class _HomePageState extends State<HomePage> {
         future: Future.value(controller.details()),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: Text(
-                'Carregando...',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: AppColors.green,
+            return new Container(
+              decoration: new BoxDecoration(color: AppColors.green),
+              child: Center(
+                child: Text(
+                  'Carregando...',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: AppColors.white,
+                  ),
                 ),
               ),
             );
@@ -95,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                 child: Scaffold(
                   appBar: PreferredSize(
                     preferredSize: Size.fromHeight(
-                        MediaQuery.of(context).size.height * 0.15),
+                        MediaQuery.of(context).size.height * 0.17),
                     child: AppBar(
                       flexibleSpace: Container(
                         child: SvgPicture.asset(
@@ -200,8 +203,8 @@ class _HomePageState extends State<HomePage> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 child: Container(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.205,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.22,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     // itemCount: _imageOfPets.length,
@@ -391,7 +394,7 @@ class _HomePageState extends State<HomePage> {
                                                   height: MediaQuery.of(context)
                                                           .size
                                                           .height *
-                                                      0.175,
+                                                      0.195,
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
@@ -465,7 +468,7 @@ class _HomePageState extends State<HomePage> {
     } else if (index == 1) {
       return IncludePage();
     } else if (index == 2) {
-      return ProfilePage(userId: 5);
+      return ProfilePage();
     }
   }
 }
