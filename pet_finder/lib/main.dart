@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
@@ -18,6 +19,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Poppins',
       ),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [const Locale('pt', 'BR')],
       initialRoute: LoginPage.pageName,
       getPages: [
         GetPage(
@@ -28,7 +34,7 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: IncludePage.pageName,
           page: () => IncludePage(),
-          binding: PostBinding(),
+          binding: HomePageBinding(),
         ),
         GetPage(
           name: ProfilePage.pageName,

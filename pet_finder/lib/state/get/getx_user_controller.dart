@@ -38,10 +38,11 @@ class GetxUserController extends GetxController {
     }
   }
 
-  Future<void> updateUserProfile(UserModel userModel, int userId) async {
+  Future<void> updateUserProfile(UserModel userModel) async {
     final FSStorage.FlutterSecureStorage storage =
         Get.find<FSStorage.FlutterSecureStorage>();
 
+    var userId = await storage.read(key: 'user_id');
     var token = await storage.read(key: 'token');
 
     try {

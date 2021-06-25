@@ -6,7 +6,7 @@ class PostModel {
   final String breed;
   final String sex;
   final String lsAddress;
-  final String lsDateTime;
+  final DateTime lsDateTime;
   final String observation;
   final int userId;
 

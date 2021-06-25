@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pet_finder/models/post_model.dart';
-import 'package:pet_finder/state/get/getx_post_controller.dart';
-import 'package:pet_finder/state/get/getx_user_controller.dart';
-import 'package:pet_finder/ui/pages/home/home_.dart';
-import 'package:pet_finder/ui/utils/colors.dart';
-import '../../utils/utils.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:pet_finder/models/user_model.dart';
+import 'package:pet_finder/state/get/getx_user_controller.dart';
+import 'package:pet_finder/ui/pages/home/home_page.dart';
+import 'package:pet_finder/ui/utils/colors.dart';
+
+import '../../utils/utils.dart';
 
 class UpdateProfilePage extends StatefulWidget {
   static String pageName = '/update-profile';
@@ -24,32 +24,20 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final GetxPostController controller = Get.find<GetxPostController>();
-  final GetxUserController userController = Get.find<GetxUserController>();
+  final GetxUserController controller = Get.find<GetxUserController>();
 
   final _picker = ImagePicker();
 
-  String _image;
+  String _avatar;
   String _name;
-  String _breed;
-  String _sex;
-  String _lsAddress;
-  String _date;
-  String _time;
-  String _observation;
+  int _phone;
+  String _email;
 
   void createPost() async {
     if (_formKey.currentState.validate()) {
       await controller
-          .createPost(PostModel(
-              image: _image,
-              name: _name,
-              breed: _breed,
-              sex: _sex,
-              lsAddress: _lsAddress,
-              lsDateTime: _date + _time,
-              observation: _observation,
-              userId: await userController.getCurrentUserId()))
+          .updateUserProfile(UserModel(
+              avatar: _avatar, name: _name, phone: _phone, email: _email))
           .then((value) {
         Navigator.of(context).pushReplacementNamed(HomePage.pageName);
       }).onError((error, stackTrace) {
@@ -67,18 +55,18 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
   Future getImage() async {
     final _pickedFile = await _picker.getImage(source: ImageSource.gallery);
     setState(() {
-      _image = _pickedFile.path;
+      _avatar = _pickedFile.path;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.value(userController.getUser()),
+      future: Future.value(controller.getUser()),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return new Container(
-            decoration: new BoxDecoration(color: AppColors.pink),
+          return Container(
+            decoration: BoxDecoration(color: AppColors.pink),
             child: Center(
               child: Text(
                 'Carregando Formulário...',
@@ -94,14 +82,14 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
           if (snapshot.hasError)
             return Center(
               child: Text(
-                'Error!',
+                'Erro, tente novamente!',
               ),
             );
           else
             return Scaffold(
               appBar: PreferredSize(
                 preferredSize:
-                    Size.fromHeight(MediaQuery.of(context).size.height * 0.17),
+                    Size.fromHeight(MediaQuery.of(context).size.height * 0.18),
                 child: AppBar(
                   flexibleSpace: Container(
                     child: SvgPicture.asset(
@@ -193,8 +181,9 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
                                   filled: true,
                                   fillColor: AppColors.white[600],
                                   labelText: "Nome",
-                                  labelStyle:
-                                      TextStyle(color: AppColors.grey[700]),
+                                  labelStyle: TextStyle(
+                                    color: AppColors.grey[700],
+                                  ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: const BorderRadius.all(
                                       const Radius.circular(10.0),
@@ -246,7 +235,7 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
                                 ),
                                 onChanged: (text) {
                                   setState(() {
-                                    _breed = text;
+                                    _email = text;
                                   });
                                 },
                               ),
@@ -279,7 +268,7 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
                                 ),
                                 onChanged: (text) {
                                   setState(() {
-                                    _sex = text;
+                                    _phone = int.parse(text);
                                   });
                                 },
                               ),

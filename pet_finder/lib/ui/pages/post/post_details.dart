@@ -24,13 +24,16 @@ class _PostDetailsState extends State<PostDetails> {
       future: Future.value(controller.getPost(widget.postId)),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: Text(
-              'Carregando Postagem...',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: AppColors.green,
+          return Container(
+            decoration: BoxDecoration(color: AppColors.blue),
+            child: Center(
+              child: Text(
+                'Carregando Postagem...',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: AppColors.white,
+                ),
               ),
             ),
           );
@@ -38,13 +41,15 @@ class _PostDetailsState extends State<PostDetails> {
           if (snapshot.hasError) {
             return Center(
               child: Text(
-                'Error!',
+                'Erro, tente novamente!',
               ),
             );
           } else {
-            var dateTime = DateTime.parse(snapshot.data['ls_datetime']);
-            String formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
-            String formattedTime = DateFormat('kk:mm').format(dateTime);
+            var iconSexColor;
+            if (snapshot.data['sex'] == 'Fêmea')
+              iconSexColor = AppColors.pink;
+            else
+              iconSexColor = AppColors.blue;
 
             return Center(
               child: Scaffold(
@@ -147,7 +152,7 @@ class _PostDetailsState extends State<PostDetails> {
                                     children: [
                                       Icon(
                                         Icons.person,
-                                        color: AppColors.blue,
+                                        color: iconSexColor,
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(left: 5),
@@ -213,28 +218,14 @@ class _PostDetailsState extends State<PostDetails> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
-                                    formattedDate,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: AppColors.grey[600]),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.schedule,
-                                  color: AppColors.green,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    formattedTime,
+                                    DateFormat(
+                                      DateFormat.YEAR_MONTH_DAY,
+                                      'pt_Br',
+                                    ).format(
+                                      DateTime.parse(
+                                        snapshot.data['ls_datetime'],
+                                      ),
+                                    ),
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: AppColors.grey[600]),

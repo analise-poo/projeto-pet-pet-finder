@@ -16,18 +16,14 @@ class _ProfilePageState extends State<ProfilePage> {
   final String _appBarBackground = "assets/images/BackgroundAppBarHome.svg";
   final GetxUserController controller = Get.find<GetxUserController>();
 
-  String _nameProfile;
-  num _phoneProfile;
-  String _emailProfile;
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: Future.value(controller.getUser()),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return new Container(
-            decoration: new BoxDecoration(color: AppColors.pink),
+          return Container(
+            decoration: BoxDecoration(color: AppColors.pink),
             child: Center(
               child: Text(
                 'Carregando Perfil...',
@@ -43,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
           if (snapshot.hasError)
             return Center(
               child: Text(
-                'Error!',
+                'Erro, tente novamente!',
               ),
             );
           else
@@ -51,8 +47,9 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Scaffold(
                 appBar: PreferredSize(
                   preferredSize: Size.fromHeight(
-                      MediaQuery.of(context).size.height * 0.17),
+                      MediaQuery.of(context).size.height * 0.18),
                   child: AppBar(
+                    automaticallyImplyLeading: false,
                     flexibleSpace: Container(
                       child: SvgPicture.asset(
                         _appBarBackground,
@@ -84,9 +81,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
-                          SizedBox(
-                            height: 5,
-                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

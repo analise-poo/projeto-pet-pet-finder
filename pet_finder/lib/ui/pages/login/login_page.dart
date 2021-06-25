@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_finder/models/login_model.dart';
 import 'package:pet_finder/state/get/getx_login_controller.dart';
-import 'package:pet_finder/ui/pages/home/home_.dart';
+import 'package:pet_finder/ui/pages/home/home.dart';
 import 'package:pet_finder/ui/utils/colors.dart';
 import '../../utils/utils.dart';
 

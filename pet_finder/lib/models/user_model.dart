@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 class UserModel {
   final String avatar;
   final String name;
-  final String phone;
+  final int phone;
   final String email;
 
   UserModel({this.avatar, this.name, this.phone, this.email});

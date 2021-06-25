@@ -73,8 +73,8 @@ class _HomePageState extends State<HomePage> {
         future: Future.value(controller.details()),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return new Container(
-              decoration: new BoxDecoration(color: AppColors.green),
+            return Container(
+              decoration: BoxDecoration(color: AppColors.green),
               child: Center(
                 child: Text(
                   'Carregando...',
@@ -93,13 +93,20 @@ class _HomePageState extends State<HomePage> {
                   'Error!',
                 ),
               );
-            else
+            else {
+              var _itemCount;
+              if (snapshot.data.length <= 4)
+                _itemCount = snapshot.data.length;
+              else
+                _itemCount = 4;
+
               return Center(
                 child: Scaffold(
                   appBar: PreferredSize(
                     preferredSize: Size.fromHeight(
-                        MediaQuery.of(context).size.height * 0.17),
+                        MediaQuery.of(context).size.height * 0.18),
                     child: AppBar(
+                      automaticallyImplyLeading: false,
                       flexibleSpace: Container(
                         child: SvgPicture.asset(
                           _appBarBackground,
@@ -192,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                                     Text(
                                       "Pets que se perderam pertinho",
                                       style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 17,
                                         color: AppColors.grey[900],
                                       ),
                                     )
@@ -207,8 +214,7 @@ class _HomePageState extends State<HomePage> {
                                       MediaQuery.of(context).size.height * 0.22,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    // itemCount: _imageOfPets.length,
-                                    itemCount: 4,
+                                    itemCount: _itemCount,
                                     itemBuilder: (context, index) {
                                       return new GestureDetector(
                                         onTap: () {
@@ -224,7 +230,7 @@ class _HomePageState extends State<HomePage> {
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
+                                              horizontal: 10, vertical: 1),
                                           child: Container(
                                             decoration: BoxDecoration(
                                               borderRadius:
@@ -272,7 +278,8 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsets
-                                                      .symmetric(horizontal: 5),
+                                                          .symmetric(
+                                                      horizontal: 10),
                                                   child: Column(
                                                     children: [
                                                       Row(
@@ -319,34 +326,38 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(
-                                    top: 40, left: 20, right: 20, bottom: 20),
+                                  top: 25,
+                                  left: 20,
+                                  right: 20,
+                                  bottom: 20,
+                                ),
                                 child: Row(
                                   children: [
                                     Text(
                                       "Pets que se perderam hoje",
                                       style: TextStyle(
-                                        fontSize: 16,
-                                        color: AppColors.grey[900],
+                                        fontSize: 19,
+                                        color: AppColors.grey[800],
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                ),
                                 child: Container(
                                   height: MediaQuery.of(context).size.height,
                                   child: GridView.builder(
                                     physics: ScrollPhysics(),
                                     gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
-                                            mainAxisSpacing: 20,
-                                            maxCrossAxisExtent:
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.35),
+                                      mainAxisSpacing: 20,
+                                      maxCrossAxisExtent:
+                                          MediaQuery.of(context).size.height *
+                                              0.35,
+                                    ),
                                     itemCount: snapshot.data.length,
                                     itemBuilder: (context, index) {
                                       return new GestureDetector(
@@ -462,6 +473,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               );
+            }
           }
         },
       );
