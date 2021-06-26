@@ -62,7 +62,7 @@ class GetxUserController extends GetxController {
 
       print(response.data);
     } on DioError catch (d) {
-      print('MESSAGE: ${d.message}, RESPONSE: ${d.response}');
+      print('MESSAGE: ${d.message}');
       throw Exception('Aconteceu um erro no Dio!');
     } catch (e) {
       print(e);

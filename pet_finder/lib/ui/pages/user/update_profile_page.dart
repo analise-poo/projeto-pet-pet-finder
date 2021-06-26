@@ -19,7 +19,11 @@ class UpdateProfilePage extends StatefulWidget {
   _UpdateProfilePage createState() => _UpdateProfilePage();
 }
 
-class _UpdateProfilePage extends State<UpdateProfilePage> {
+class _UpdateProfilePage extends State<UpdateProfilePage>
+    with AutomaticKeepAliveClientMixin<UpdateProfilePage> {
+  @override
+  bool get wantKeepAlive => true;
+
   final String _appBarBackground = "assets/images/BackgroundAppBarHome.svg";
 
   final _formKey = GlobalKey<FormState>();
@@ -30,16 +34,33 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
 
   String _avatar;
   String _name;
-  int _phone;
+  String _phone;
   String _email;
+  Future _user;
 
-  void createPost() async {
+  @override
+  void initState() {
+    _user = getUser();
+    super.initState();
+  }
+
+  Future getUser() async {
+    return await controller.getUser();
+  }
+
+  void updateProfile() async {
     if (_formKey.currentState.validate()) {
       await controller
           .updateUserProfile(UserModel(
               avatar: _avatar, name: _name, phone: _phone, email: _email))
           .then((value) {
-        Navigator.of(context).pushReplacementNamed(HomePage.pageName);
+        Navigator.of(context).pushNamed('/');
+        Get.snackbar(
+          'Sucesso',
+          'Perfil atualizado!',
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
       }).onError((error, stackTrace) {
         print(error);
         Get.snackbar(
@@ -61,8 +82,9 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FutureBuilder(
-      future: Future.value(controller.getUser()),
+      future: _user,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
@@ -85,7 +107,11 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
                 'Erro, tente novamente!',
               ),
             );
-          else
+          else {
+            if (_name == null) _name = snapshot.data['name'];
+            if (_phone == null) _phone = snapshot.data['phone'];
+            if (_email == null) _email = snapshot.data['email'];
+
             return Scaffold(
               appBar: PreferredSize(
                 preferredSize:
@@ -101,12 +127,31 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
                     preferredSize: Size.fromHeight(
                         MediaQuery.of(context).size.height * 0.1),
                     child: Padding(
-                      padding: EdgeInsets.only(
-                        right: MediaQuery.of(context).size.width * 0.05,
-                        left: MediaQuery.of(context).size.width * 0.05,
-                        bottom: MediaQuery.of(context).size.width * 0.1,
-                      ),
-                    ),
+                        padding: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.width * 0.05,
+                          left: MediaQuery.of(context).size.width * 0.05,
+                          bottom: MediaQuery.of(context).size.width * 0.1,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Atualizar Perfil",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black,
+                                    blurRadius: 8,
+                                  ),
+                                ],
+                                fontSize: 30,
+                                color: AppColors.white,
+                              ),
+                            ),
+                          ],
+                        )),
                   ),
                   backgroundColor: Colors.transparent,
                   elevation: 0,
@@ -268,7 +313,7 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
                                 ),
                                 onChanged: (text) {
                                   setState(() {
-                                    _phone = int.parse(text);
+                                    _phone = text;
                                   });
                                 },
                               ),
@@ -278,7 +323,7 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
                               Row(
                                 children: [
                                   ElevatedButton(
-                                    onPressed: createPost,
+                                    onPressed: updateProfile,
                                     child: Text(
                                       'Salvar',
                                       style: TextStyle(
@@ -311,9 +356,6 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                height: 20,
-                              ),
                             ],
                           ),
                         ),
@@ -323,6 +365,7 @@ class _UpdateProfilePage extends State<UpdateProfilePage> {
                 ),
               ),
             );
+          }
         }
       },
     );

@@ -52,6 +52,12 @@ class _IncludePageState extends State<IncludePage> {
               userId: await userController.getCurrentUserId()))
           .then((value) {
         Navigator.of(context).pushNamed('/');
+        Get.snackbar(
+          'Sucesso',
+          'Postagem criada!',
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
       }).onError((error, stackTrace) {
         print(error);
         Get.snackbar(

@@ -51,6 +51,12 @@ class _SignUpState extends State<SignUpPage> {
               password: _passwordRegister))
           .then((value) {
         Get.to(() => LoginPage(), binding: LoginBinding());
+        Get.snackbar(
+          'Sucesso',
+          'Conta criada!',
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
       }).onError((error, stackTrace) {
         print(error);
         Get.snackbar(

@@ -3,10 +3,10 @@ import 'package:dio/dio.dart';
 class UserModel {
   final String avatar;
   final String name;
-  final int phone;
+  final String phone;
   final String email;
 
-  UserModel({this.avatar, this.name, this.phone, this.email});
+  UserModel({this.avatar, this.name, this.email, this.phone});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -22,7 +22,7 @@ class UserModel {
       'avatar': await MultipartFile.fromFile(this.avatar),
       'name': this.name,
       'phone': this.phone,
-      'email': this.email
+      'email': this.email,
     });
   }
 }
