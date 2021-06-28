@@ -18,9 +18,9 @@ class CreatePostsTable extends Migration
             $table->string('image')->nullable();
             $table->string('name');
             $table->string('breed');
-            $table->char('sex');
+            $table->string('sex');
             $table->string('ls_address');
-            $table->datetime('ls_datetime');
+            $table->string('ls_datetime');
             $table->string('observation');
             $table->timestamps();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
