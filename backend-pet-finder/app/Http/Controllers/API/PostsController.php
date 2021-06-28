@@ -50,7 +50,7 @@ class PostsController extends Controller
             'ls_address' => 'required|max:40',
             'ls_datetime' => 'required',
             'observation' => 'max:40',
-            'user_id' => 'numeric',
+            'user_id' => 'required|numeric',
         ]);
 
         $post = Post::create([
@@ -96,6 +96,7 @@ class PostsController extends Controller
             'ls_address' => 'required|max:40',
             'ls_datetime' => 'required',
             'observation' => 'max:40',
+            'user_id' => 'required|numeric',
         ]);
 
         if ($request->hasFile('image')) {
