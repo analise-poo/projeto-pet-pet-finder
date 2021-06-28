@@ -25,7 +25,14 @@ class GetxLoginController extends GetxController {
         ),
       );
 
-      await storage.write(key: 'token', value: response.data);
+      await storage.write(
+        key: 'user_id',
+        value: response.data['user_id'].toString(),
+      );
+      await storage.write(
+        key: 'token',
+        value: response.data['token'],
+      );
 
       print(response.data);
     } on DioError catch (d) {

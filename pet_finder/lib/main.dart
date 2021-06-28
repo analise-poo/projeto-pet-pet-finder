@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:pet_finder/ui/pages/login/login_binding.dart';
-import 'package:pet_finder/ui/pages/post/include_page.dart';
-import 'package:pet_finder/ui/pages/register/singup_binding.dart';
-import 'package:pet_finder/ui/pages/post/post_binding.dart';
 
-import 'ui/pages/bindings/home_page_binding.dart';
 import 'ui/pages/pages.dart';
 
 void main() {
@@ -23,14 +19,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Poppins',
       ),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [const Locale('pt', 'BR')],
       initialRoute: LoginPage.pageName,
-      // routes: {
-      //   '/': (context) => HomePage(),
-      //   IncludePage.pageName: (context) => IncludePage(),
-      //   ProfilePage.pageName: (context) => ProfilePage(),
-      //   LoginPage.pageName: (context) => LoginPage(),
-      //   SignUpPage.pageName: (context) => SignUpPage()
-      // },
       getPages: [
         GetPage(
           name: HomePage.pageName,
@@ -40,11 +34,17 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: IncludePage.pageName,
           page: () => IncludePage(),
-          binding: PostBinding(),
+          binding: HomePageBinding(),
         ),
         GetPage(
           name: ProfilePage.pageName,
           page: () => ProfilePage(),
+          binding: UserBinding(),
+        ),
+        GetPage(
+          name: UpdateProfilePage.pageName,
+          page: () => UpdateProfilePage(),
+          binding: UserBinding(),
         ),
         GetPage(
           name: LoginPage.pageName,
@@ -57,8 +57,9 @@ class MyApp extends StatelessWidget {
           binding: RegisterBinding(),
         ),
         GetPage(
-          name: PetDetails.pageName,
-          page: () => PetDetails(),
+          name: PostDetails.pageName,
+          page: () => PostDetails(),
+          binding: PostBinding(),
         ),
       ],
       debugShowCheckedModeBanner: false,

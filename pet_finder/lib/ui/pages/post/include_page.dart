@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:dropdown_formfield/dropdown_formfield.dart';
+import 'package:intl/intl.dart';
 import 'package:pet_finder/models/post_model.dart';
 import 'package:pet_finder/state/get/getx_post_controller.dart';
-import 'package:pet_finder/ui/pages/bindings/home_page_binding.dart';
-import 'package:pet_finder/ui/pages/home.dart';
-import 'dart:io';
+import 'package:pet_finder/state/get/getx_user_controller.dart';
 import 'package:pet_finder/ui/utils/colors.dart';
 import '../../utils/utils.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -26,6 +26,7 @@ class _IncludePageState extends State<IncludePage> {
   final _formKey = GlobalKey<FormState>();
 
   final GetxPostController controller = Get.find<GetxPostController>();
+  final GetxUserController userController = Get.find<GetxUserController>();
 
   final _picker = ImagePicker();
 
@@ -34,7 +35,7 @@ class _IncludePageState extends State<IncludePage> {
   String _breed;
   String _sex;
   String _lsAddress;
-  String _lsDateTime;
+  DateTime _lsDateTime = DateTime.now();
   String _observation;
 
   void createPost() async {
@@ -47,9 +48,16 @@ class _IncludePageState extends State<IncludePage> {
               sex: _sex,
               lsAddress: _lsAddress,
               lsDateTime: _lsDateTime,
-              observation: _observation))
+              observation: _observation,
+              userId: await userController.getCurrentUserId()))
           .then((value) {
-        Get.to(() => HomePage(), binding: HomePageBinding());
+        Navigator.of(context).pushNamed('/');
+        Get.snackbar(
+          'Sucesso',
+          'Postagem criada!',
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
       }).onError((error, stackTrace) {
         print(error);
         Get.snackbar(
@@ -69,13 +77,29 @@ class _IncludePageState extends State<IncludePage> {
     });
   }
 
+  Future<void> selectDate(BuildContext context) async {
+    FocusScope.of(context).requestFocus(FocusNode());
+    final DateTime picked = await showDatePicker(
+        context: context,
+        locale: Locale('pt', 'BR'),
+        initialDate: _lsDateTime,
+        firstDate: DateTime(2021),
+        lastDate: DateTime(2100));
+    if (picked != null && picked != _lsDateTime) {
+      setState(() {
+        _lsDateTime = picked;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
-            Size.fromHeight(MediaQuery.of(context).size.height * 0.15),
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.18),
         child: AppBar(
+          automaticallyImplyLeading: false,
           flexibleSpace: Container(
             child: SvgPicture.asset(
               _appBarBackground,
@@ -92,51 +116,23 @@ class _IncludePageState extends State<IncludePage> {
                 bottom: MediaQuery.of(context).size.width * 0.1,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.075,
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: AppColors.white[600],
+                  Text(
+                    "Nova Postagem",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black,
+                          blurRadius: 8,
                         ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.person,
-                              color: AppColors.green,
-                              size: MediaQuery.of(context).size.width * 0.075,
-                            ),
-                            SizedBox(
-                              child: Text(
-                                'Jorge Luiz',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                      ],
+                      fontSize: 30,
+                      color: AppColors.white,
+                    ),
                   ),
-                  Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.075,
-                          width: MediaQuery.of(context).size.height * 0.075,
-                          child: Image.network(
-                            'https://uifaces.co/our-content/donated/1H_7AxP0.jpg',
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
                 ],
               ),
             ),
@@ -168,22 +164,29 @@ class _IncludePageState extends State<IncludePage> {
                         height: 20,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          ElevatedButton(
+                          ElevatedButton.icon(
                             onPressed: getImage,
-                            child: Text(
+                            icon: Icon(Icons.camera_alt),
+                            label: Text(
                               'Selecionar Imagem do Pet',
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                 AppColors.purple,
                               ),
                               minimumSize: MaterialStateProperty.all<Size>(
-                                Size(350, 60),
+                                Size(
+                                  MediaQuery.of(context).size.width * 0.1,
+                                  MediaQuery.of(context).size.height * 0.1,
+                                ),
                               ),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
@@ -198,7 +201,7 @@ class _IncludePageState extends State<IncludePage> {
                       SizedBox(
                         height: 20,
                       ),
-                      TextField(
+                      TextFormField(
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           filled: true,
@@ -220,11 +223,16 @@ class _IncludePageState extends State<IncludePage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
+                        onChanged: (text) {
+                          setState(() {
+                            _name = text;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 20,
                       ),
-                      TextField(
+                      TextFormField(
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           filled: true,
@@ -246,37 +254,36 @@ class _IncludePageState extends State<IncludePage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
+                        onChanged: (text) {
+                          setState(() {
+                            _breed = text;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 20,
                       ),
-                      TextField(
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: AppColors.white[600],
-                          labelText: "Sexo",
-                          labelStyle: TextStyle(color: AppColors.grey[700]),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(10.0),
-                            ),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 0.5),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(10.0),
-                            ),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 0.5),
-                          ),
-                        ),
+                      DropDownFormField(
+                        value: _sex,
+                        titleText: 'Sexo',
+                        hintText: 'Selecione o sexo',
+                        textField: 'display',
+                        valueField: 'value',
+                        dataSource: [
+                          {"display": "Macho", "value": "Macho"},
+                          {"display": "Fêmea", "value": "Fêmea"},
+                        ],
+                        onChanged: (value) {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          setState(() {
+                            _sex = value;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 20,
                       ),
-                      TextField(
+                      TextFormField(
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           filled: true,
@@ -298,63 +305,73 @@ class _IncludePageState extends State<IncludePage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
+                        onChanged: (text) {
+                          setState(() {
+                            _lsAddress = text;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 20,
                       ),
-                      TextField(
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: AppColors.white[600],
-                          labelText: "Data",
-                          labelStyle: TextStyle(color: AppColors.grey[700]),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(10.0),
+                      Row(
+                        children: [
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.088,
+                            width: MediaQuery.of(context).size.width * 0.88,
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: AppColors.white[600],
                             ),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 0.5),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Data: ' +
+                                      DateFormat(
+                                        DateFormat.YEAR_MONTH_DAY,
+                                        'pt_Br',
+                                      ).format(_lsDateTime),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                ElevatedButton(
+                                  child: Icon(
+                                    Icons.calendar_today,
+                                    color: AppColors.white,
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                      AppColors.blue,
+                                    ),
+                                    minimumSize:
+                                        MaterialStateProperty.all<Size>(
+                                      Size(
+                                        MediaQuery.of(context).size.width *
+                                            0.08,
+                                        MediaQuery.of(context).size.height *
+                                            0.08,
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () => selectDate(context),
+                                ),
+                              ],
                             ),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 0.5),
                           ),
-                        ),
+                        ],
                       ),
                       SizedBox(
                         height: 20,
                       ),
-                      TextField(
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: AppColors.white[600],
-                          labelText: "Horário",
-                          labelStyle: TextStyle(color: AppColors.grey[700]),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(10.0),
-                            ),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 0.5),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(10.0),
-                            ),
-                            borderSide:
-                                BorderSide(color: Colors.white, width: 0.5),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextField(
+                      TextFormField(
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           filled: true,
@@ -376,6 +393,11 @@ class _IncludePageState extends State<IncludePage> {
                                 BorderSide(color: Colors.white, width: 0.5),
                           ),
                         ),
+                        onChanged: (text) {
+                          setState(() {
+                            _observation = text;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 30,
@@ -396,7 +418,10 @@ class _IncludePageState extends State<IncludePage> {
                                 AppColors.green,
                               ),
                               minimumSize: MaterialStateProperty.all<Size>(
-                                Size(350, 60),
+                                Size(
+                                  MediaQuery.of(context).size.width * 0.888,
+                                  MediaQuery.of(context).size.height * 0.1,
+                                ),
                               ),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(

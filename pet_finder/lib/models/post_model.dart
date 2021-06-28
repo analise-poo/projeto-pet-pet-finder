@@ -1,11 +1,14 @@
+import 'package:dio/dio.dart';
+
 class PostModel {
   final String image;
   final String name;
   final String breed;
   final String sex;
   final String lsAddress;
-  final String lsDateTime;
+  final DateTime lsDateTime;
   final String observation;
+  final int userId;
 
   PostModel(
       {this.image,
@@ -14,7 +17,8 @@ class PostModel {
       this.sex,
       this.lsAddress,
       this.lsDateTime,
-      this.observation});
+      this.observation,
+      this.userId});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -25,7 +29,21 @@ class PostModel {
     data['ls_address'] = this.lsAddress;
     data['ls_datatime'] = this.lsDateTime;
     data['observation'] = this.observation;
+    data['userId'] = this.userId;
     return data;
+  }
+
+  Future<FormData> toFormData() async {
+    return FormData.fromMap({
+      'image': await MultipartFile.fromFile(this.image),
+      'name': this.name,
+      'breed': this.breed,
+      'sex': this.sex,
+      'ls_address': this.lsAddress,
+      'ls_datetime': this.lsDateTime,
+      'observation': this.observation,
+      'user_id': this.userId,
+    });
   }
 }
 

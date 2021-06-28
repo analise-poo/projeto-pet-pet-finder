@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_finder/models/login_model.dart';
 import 'package:pet_finder/state/get/getx_login_controller.dart';
-import 'package:pet_finder/ui/pages/bindings/home_page_binding.dart';
+import 'package:pet_finder/ui/pages/home/home.dart';
 import 'package:pet_finder/ui/utils/colors.dart';
 import '../../utils/utils.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../home.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -61,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
-            Size.fromHeight(MediaQuery.of(context).size.height * 0.25),
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.273),
         child: AppBar(
           flexibleSpace: Container(
             child: SvgPicture.asset(
@@ -94,9 +92,9 @@ class _LoginPageState extends State<LoginPage> {
               Form(
                 key: _formKey,
                 child: Container(
-                  height: MediaQuery.of(context).size.height,
+                  height: MediaQuery.of(context).size.height * 0.85,
                   padding: EdgeInsets.only(
-                    top: 60,
+                    top: 40,
                     left: 20,
                     right: 20,
                   ),
@@ -145,6 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                           suffixIcon: IconButton(
                             icon: Icon(Icons.visibility),
                             onPressed: toogleVisible,
+                            autofocus: isObscure,
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
@@ -198,7 +197,10 @@ class _LoginPageState extends State<LoginPage> {
                                 AppColors.green,
                               ),
                               minimumSize: MaterialStateProperty.all<Size>(
-                                Size(350, 60),
+                                Size(
+                                  MediaQuery.of(context).size.width * 0.888,
+                                  MediaQuery.of(context).size.height * 0.1,
+                                ),
                               ),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
@@ -211,36 +213,38 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
-                      Row(children: <Widget>[
-                        Expanded(
-                          child: new Container(
-                              margin: const EdgeInsets.only(
-                                  left: 20.0, right: 20.0),
-                              child: Divider(
-                                color: AppColors.grey[700],
-                                height: 50,
-                              )),
-                        ),
-                        Text(
-                          "ou",
-                          style: TextStyle(
-                            color: AppColors.grey[700],
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: new Container(
+                                margin: const EdgeInsets.only(
+                                    left: 20.0, right: 20.0),
+                                child: Divider(
+                                  color: AppColors.grey[700],
+                                  height: 50,
+                                )),
                           ),
-                        ),
-                        Expanded(
-                          child: new Container(
-                              margin: const EdgeInsets.only(
-                                  left: 20.0, right: 20.0),
-                              child: Divider(
-                                color: AppColors.grey[700],
-                                height: 36,
-                              )),
-                        ),
-                      ]),
+                          Text(
+                            "ou",
+                            style: TextStyle(
+                              color: AppColors.grey[700],
+                            ),
+                          ),
+                          Expanded(
+                            child: new Container(
+                                margin: const EdgeInsets.only(
+                                    left: 20.0, right: 20.0),
+                                child: Divider(
+                                  color: AppColors.grey[700],
+                                  height: 36,
+                                )),
+                          ),
+                        ],
+                      ),
                       SizedBox(
-                        height: 20,
+                        height: 5,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -294,7 +298,7 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Não tem uma conta?',
+                            'Não tem uma conta? ',
                             style: TextStyle(
                               color: AppColors.grey[700],
                             ),

@@ -1,29 +1,37 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart'
-    as FSStorage;
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart'
+    as FSStorage;
+
 import 'package:pet_finder/models/post_model.dart';
 
 class GetxPostController extends GetxController {
   Future<void> createPost(PostModel postModel) async {
+    final FSStorage.FlutterSecureStorage storage =
+        Get.find<FSStorage.FlutterSecureStorage>();
+
+    var token = await storage.read(key: 'token');
+
     try {
       print('POST api/posts');
-      print('${postModel.toJson()}');
+      print('${await postModel.toFormData()}');
 
-      await Dio().post(
+      var response = await Dio().post(
         'https://backend-pet-finder.herokuapp.com/api/posts',
-        data: postModel.toJson(),
+        data: await postModel.toFormData(),
         options: Options(
           headers: {
-            HttpHeaders.contentTypeHeader: 'application/json',
+            HttpHeaders.contentTypeHeader: 'multipart/form-data',
+            HttpHeaders.authorizationHeader: 'Bearer $token',
           },
         ),
       );
+
+      print(response.data);
     } on DioError catch (d) {
-      print('MESSAGE: ${d.message}');
+      print('MESSAGE: ${d.message}, RESPONSE: ${d.response}');
       throw Exception('Aconteceu um erro no Dio!');
     } catch (e) {
       print(e);
@@ -67,7 +75,7 @@ class GetxPostController extends GetxController {
     var token = await storage.read(key: 'token');
 
     try {
-      print('GET api/posts/{postId}');
+      print('GET api/posts/$postId');
 
       var response = await Dio().get(
         'https://backend-pet-finder.herokuapp.com/api/posts/$postId',
@@ -79,6 +87,7 @@ class GetxPostController extends GetxController {
         ),
       );
 
+      print(response.data);
       return response.data;
     } on DioError catch (d) {
       print('MESSAGE: ${d.message}');

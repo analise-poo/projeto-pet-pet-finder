@@ -1,6 +1,6 @@
-export 'home.dart';
-export 'loading_page.dart';
-export 'profile_page.dart';
+export 'login/login.dart';
+export 'home/home.dart';
 export 'login/login_page.dart';
-export 'register/signup_page.dart';
-export 'pet_details.dart';
+export 'post/post.dart';
+export 'register/singup.dart';
+export 'user/user.dart';
